@@ -1,6 +1,6 @@
 # 👋 Hi, I'm **Serhii Voznyi**
 
-🎯 **Lead Software Engineer · .NET Expert · Software Architect · Open Source Contributor**  
+🎯 **Software Engineer · .NET / nodejs Expert · Software Architect · Open Source Contributor**  
 📍 Wrocław, Poland  
 🌐 [LinkedIn](https://linkedin.com/in/serhiivoznyi) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ serhiivoznyi@gmail.com
 
