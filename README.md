@@ -2,7 +2,7 @@
 
 🎯 **Software Engineer · .NET / nodejs Expert · Software Architect · Open Source Contributor**  
 📍 Wrocław, Poland  
-🌐 [LinkedIn](https://linkedin.com/in/serhiivoznyi) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ serhiivoznyi@gmail.com
+🌐 [LinkedIn](https://www.linkedin.com/in/serhii-voznyi/) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ serhiivoznyi@gmail.com
 
 ---
 
