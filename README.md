@@ -2,7 +2,7 @@
 
 🎯 **Software Engineer · .NET / nodejs Expert · Software Architect · Open Source Contributor**  
 📍 Wrocław, Poland  
-🌐 [LinkedIn](https://linkedin.com/in/serhiivoznyi) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ serhiivoznyi@gmail.com
+🌐 [LinkedIn](https://www.linkedin.com/in/serhii-voznyi/) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ serhiivoznyi@gmail.com
 
 ---
 
@@ -72,15 +72,6 @@ I’m passionate about **clean architecture**, **open source contributions**, an
 - 🧭 **Lead Software Engineer Assessment** – EPAM
 - 🎤 **.NET Community Speaker & Mentor** (since 2015)
 - 📦 Contributor to **Ticketmaster SDK** and **Amazon .NET Libraries**
-
----
-
-## 🧭 Personal Philosophy
-
-> “While a fish is looking where it is deeper, a human is looking where it is better.”
-
-I believe in **integrity, lifelong learning, and leading by example**.  
-Every day, I dedicate time to improving my craft and cultivating a culture of **trust, accountability, and technical excellence**.
 
 ---
 
