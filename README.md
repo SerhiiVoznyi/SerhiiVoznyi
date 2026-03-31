@@ -1,84 +1,99 @@
-# 👋 Hi, I'm **Serhii Voznyi**
+# 👋 Hi, I'm Serhii Voznyi
 
-🎯 **Software Engineer · .NET / nodejs Expert · Software Architect · Open Source Contributor**  
+🎯 **Lead Software Engineer · .NET / AWS Architect · Backend & Cloud Systems**  
 📍 Wrocław, Poland  
-🌐 [LinkedIn](https://www.linkedin.com/in/serhii-voznyi/) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ serhiivoznyi@gmail.com
+🔗 [LinkedIn](https://www.linkedin.com/in/serhii-voznyi/) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ [Email](mailto:serhiivoznyi@gmail.com)
 
 ---
 
 ## 🚀 About Me
 
-I’m a **results-driven Lead Software Engineer** with over **14 years of experience** designing and delivering enterprise-grade solutions using **.NET (2–9), C#**, and modern **cloud platforms** such as **AWS** and **Azure**.
+I’m a Lead Software Engineer with 14+ years of experience building enterprise software using **.NET, C#**, and modern **cloud platforms (AWS, Azure)**.
 
-I specialize in **scalable web applications**, **cloud-native architecture**, and **technical leadership**, with a strong focus on **clean code, DevOps culture**, and **mentoring engineering teams**.
+I specialize in designing and delivering:
+- scalable backend systems  
+- cloud-native applications  
+- clean and maintainable architectures  
 
-I’m passionate about **clean architecture**, **open source contributions**, and sharing knowledge through **talks, mentoring, and community involvement** in the global .NET ecosystem.
-
----
-
-## 🧰 Tech Toolbox
-
-**Languages & Frameworks**  
-`C#` · `.NET` · `ASP.NET Core` · `WPF` · `WinForms` · `JavaScript` · `TypeScript` · `VB.NET` · `HTML5` · `CSS3`
-
-**Frontend**  
-`Angular 6+` · `React.js` · `Node.js` · `Kendo UI` · `Bootstrap` · `Material`
-
-**Cloud & DevOps**  
-`AWS (Lambda, S3, SQS, EC2)` · `Azure Functions` · `Docker` · `Terraform` · `Kafka`
-
-**Databases**  
-`MSSQL` · `PostgreSQL` · `MongoDB` · `Redis` · `DynamoDB` · `CosmosDB`
-
-**Testing & Tooling**  
-`NUnit` · `xUnit` · `Jest` · `SpecFlow` · `Moq` · `AutoFixture` · `Git` · `Jenkins` · `TeamCity`
-
-**Architectural Patterns**  
-`Microservices` · `CQRS` · `DDD` · `Saga` · `Clean Architecture` · `GoF Patterns`
-
-**Methodologies**  
-`Scrum` · `Kanban` · `XP` · `Waterfall`
+I work across **architecture, hands-on development, and team leadership**, helping companies build systems that scale and evolve without breaking.
 
 ---
 
-## 🧠 Selected Projects
+## 🧠 What I Do
+
+- 🏗 Design scalable backend and cloud architectures  
+- ☁️ Build distributed systems with **.NET and AWS**  
+- 🔄 Modernize legacy systems and monoliths  
+- ⚙️ Improve engineering processes and delivery  
+- 👥 Mentor engineers and lead technical direction  
+
+---
+
+## 🧰 Tech Stack
+
+### 💻 Backend
+`C#` · `.NET` · `ASP.NET Core` · `Web API` · `Entity Framework` · `Node.js` · `TypeScript`
+
+### 🎨 Frontend
+`Angular` · `React` · `JavaScript` · `TypeScript` · `HTML` · `CSS`
+
+### ☁️ Cloud & DevOps
+`AWS` · `Azure` · `Lambda` · `S3` · `SQS` · `EC2` · `Docker` · `Terraform` · `CI/CD`
+
+### 🗄 Databases
+`SQL Server` · `PostgreSQL` · `MongoDB` · `Redis` · `DynamoDB` · `CosmosDB`
+
+### 🧩 Architecture
+`Microservices` · `CQRS` · `DDD` · `Event-Driven Architecture` · `Clean Architecture` · `Distributed Systems`
+
+### 🧪 Testing & Tooling
+`xUnit` · `NUnit` · `Jest` · `SpecFlow` · `Moq` · `Git` · `Jenkins` · `TeamCity`
+
+---
+
+## 📦 Selected Experience
 
 ### 🔹 Global Asset Management Platform
-
-- Architected and led development using **.NET Core**, **Angular 9+**, **React**, and **AWS**
-- Oversaw migration to **Node.js (TypeScript)** and implemented an enterprise file-sharing module
-- Managed a **10-person engineering team** and maintained **82%+ test coverage**
+- Led development of an enterprise platform for financial data and document workflows  
+- Worked across **.NET, Angular, React, AWS, Node.js (TypeScript)**  
+- Improved architecture, delivery processes, and engineering quality  
 
 ### 🔹 Drag-and-Drop Site Builder
-
-- Built reusable **React components** with **brand-compliant design systems**
-- Enhanced performance and user experience through optimized rendering logic
+- Built reusable UI components using **React** and design systems  
+- Improved performance and consistency across the platform  
 
 ### 🔹 Call Tracking System
-
-- Integrated **external APIs** for telephony and analytics
-- Refactored the **reporting engine** and developed robust **RESTful services**
+- Integrated external APIs for telephony and analytics  
+- Refactored reporting and backend services  
+- Improved system reliability and maintainability  
 
 ### 🔹 Account Management System
-
-- Designed a **CQRS-based backend** and developed a **granular permissions system**
-- Ensured scalability and maintainability through **domain-driven design**
+- Designed backend using **CQRS** and domain-driven design  
+- Implemented granular permissions and scalable workflows  
+- Focused on clean architecture and long-term maintainability  
 
 ---
 
-## 🏆 Certifications & Contributions
+## 🏆 Certifications & Community
 
-- ✅ **Certified .NET Technical Interviewer**
-- 🧭 **Lead Software Engineer Assessment** – EPAM
-- 🎤 **.NET Community Speaker & Mentor** (since 2015)
-- 📦 Contributor to **Ticketmaster SDK** and **Amazon .NET Libraries**
+- ✅ Certified .NET Technical Interviewer  
+- 🧭 Lead Software Engineer Assessment — EPAM  
+- 🎤 .NET Community Speaker & Mentor  
+- 📦 Contributor to open-source and technical initiatives  
+
+---
+
+## 🎯 Current Focus
+
+- .NET backend architecture  
+- AWS-based system design  
+- Distributed systems  
+- Software modernization and scalability  
 
 ---
 
 ## 📫 Connect With Me
 
-- 💼 [LinkedIn](https://linkedin.com/in/serhiivoznyi)
-- 🐙 [GitHub](https://github.com/serhiivoznyi)
-- ✉️ **serhiivoznyi@gmail.com**
-
----
+- 💼 [LinkedIn](https://www.linkedin.com/in/serhii-voznyi/)  
+- 🐙 [GitHub](https://github.com/serhiivoznyi)  
+- ✉️ [Email](mailto:serhiivoznyi@gmail.com)
