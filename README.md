@@ -8,7 +8,7 @@
 
 ## 🚀 About Me
 
-I’m a Lead Software Engineer with 14+ years of experience building enterprise software using **.NET, C#**, and modern **cloud platforms (AWS, Azure)**.
+I’m a Lead Software Engineer with 12+ years of experience building enterprise software using **.NET, C#**, and modern **cloud platforms (AWS, Azure)**.
 
 I specialize in designing and delivering:
 - scalable backend systems  
