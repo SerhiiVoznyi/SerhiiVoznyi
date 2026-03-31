@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Serhii Voznyi
+# Hi, I'm Serhii Voznyi
 
 🎯 **Lead Software Engineer · .NET / AWS Architect · Backend & Cloud Systems**  
 📍 Wrocław, Poland  
