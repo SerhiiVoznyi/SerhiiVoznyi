@@ -1,0 +1,28 @@
+id: reviewer
+name: Reviewer
+version: 0.1.0
+
+model:
+  family: n/a
+  temperature: 0.2
+
+tools:
+  allow:
+    - read
+    - search
+    - shell_read
+  deny:
+    - edit
+    - shell_write
+    - git_write
+
+defaults:
+  severity_levels:
+    - blocker
+    - should-fix
+    - nit
+  require_rule_citation_for_blockers: true
+
+inherits:
+  - agents/_shared/baseline.md
+  - agents/_shared/tool-policy.md

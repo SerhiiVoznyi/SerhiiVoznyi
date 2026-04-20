@@ -1,0 +1,26 @@
+id: debugger
+name: Debugger
+version: 0.1.0
+
+model:
+  family: n/a
+  temperature: 0.1
+
+tools:
+  allow:
+    - read
+    - search
+    - edit
+    - shell_read
+    - shell_write
+  deny:
+    - git_push_force
+
+defaults:
+  require_reproduction: true
+  require_regression_test: false
+  log_sessions_to: logs/sessions/
+
+inherits:
+  - agents/_shared/baseline.md
+  - agents/_shared/tool-policy.md

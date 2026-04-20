@@ -1,0 +1,26 @@
+@use '../../styles/mixins' as *
+
+.app-footer
+    background-color: var(--app-color-secondary)
+    width: 100%
+    display: flex
+    align-content: center
+    flex-flow: column wrap
+
+    &-level
+        padding-top: 1rem
+        display: flex
+        align-content: center
+        justify-content: center
+
+        @include tablet
+            flex-flow: column wrap
+
+    &-section
+        display: block
+        width: 100%
+
+        @include tablet
+            margin-bottom: 1rem
+        &-title
+            font-weight: 500

@@ -1,0 +1,27 @@
+id: implementer
+name: Implementer
+version: 0.1.0
+
+model:
+  family: n/a
+  temperature: 0.1
+
+tools:
+  allow:
+    - read
+    - search
+    - edit
+    - shell_read
+    - shell_write
+  deny:
+    - git_push_force
+    - git_config_write
+
+defaults:
+  read_before_edit: true
+  require_tests: false
+  run_lint_before_done: true
+
+inherits:
+  - agents/_shared/baseline.md
+  - agents/_shared/tool-policy.md

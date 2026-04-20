@@ -1,0 +1,25 @@
+id: planner
+name: Planner
+version: 0.1.0
+
+model:
+  family: n/a
+  temperature: 0.2
+
+tools:
+  allow:
+    - read
+    - search
+    - web_search
+  deny:
+    - shell_write
+    - git_write
+
+defaults:
+  max_questions_per_turn: 2
+  cite_sources: true
+  emit_task_to: tasks/backlog/
+
+inherits:
+  - agents/_shared/baseline.md
+  - agents/_shared/tool-policy.md

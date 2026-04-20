@@ -1,0 +1,58 @@
+@use '../../../styles/mixins' as *
+.post
+    margin: 5px 0
+    max-width: calc(33.33333% - 20px)
+    overflow: hidden
+
+    border-radius: 8px
+
+    -webkit-box-shadow: 0px 0px 15px -2px rgba(0, 0, 0, 0.16)
+    -moz-box-shadow: 0px 0px 15px -2px rgba(0, 0, 0, 0.16)
+    box-shadow: 0px 0px 15px -2px rgba(0, 0, 0, 0.16)
+
+    @include tablet
+        max-width: calc(50% - 10px)
+    @include mobile
+        max-width: 100%
+
+    &:has(:hover, :focus)
+        --img-scale: 1.2
+        --title-color: #28666e
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px
+
+    &-header
+        margin: 0
+        padding: 0
+        aspect-ratio: 16 / 9
+        overflow: hidden
+        img
+            max-width: 100%
+            transform-origin: center
+            transform: scale(var(--img-scale))
+            transition: transform 0.4s ease-in-out
+
+    &-body
+        padding: 8px 14px
+
+        &-title
+            line-height: 1.2rem
+            font-size: 1.2rem
+            font-weight: bold
+            letter-spacing: 0.06em
+            transition: color 0.3s ease-out
+
+        &-comment
+            line-height: 1.6rem
+            font-size: .9rem
+
+        &-content
+            height: 150px
+            line-height: 1.3rem
+            text-overflow: ellipsis
+            overflow: hidden
+
+    &-footer
+        padding: 5px 14px
+        text-align: right
+        min-height: 5px
+        background: linear-gradient(to right, var(--app-color-decoration-primary), var(--app-color-decoration-secondary))

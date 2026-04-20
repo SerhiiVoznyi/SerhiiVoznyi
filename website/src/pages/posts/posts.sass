@@ -1,0 +1,13 @@
+@use '../../styles/mixins' as *
+.app-page-posts
+    max-width: var(--app-max-width)
+    width: var(--app-max-width)
+
+    .results
+        display: flex
+        flex-flow: row wrap
+        align-items: center
+        justify-content: space-between
+
+        @include mobile
+            flex-flow: column

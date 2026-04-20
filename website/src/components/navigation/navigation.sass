@@ -1,0 +1,48 @@
+@use '../../styles/mixins' as *
+.app-navigation
+    width: 100%
+    margin: 1rem
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    &-menu
+        display: flex
+        align-items: center
+
+        .active
+            border-bottom: var(--app-component-border-bottom) inset var(--app-color-decoration-primary)
+            border-image: linear-gradient(to right, var(--app-color-decoration-primary), var(--app-color-decoration-secondary))
+            border-image-slice: 1
+
+        a
+            display: flex
+            align-items: center
+            height: var(--app-nav-link-height)
+            outline: 0
+            padding: 0 30px
+            text-decoration: none
+            border-bottom: var(--app-component-border-bottom) inset inherit
+            &:hover
+                color: var(--main-color-continuum-dark-gray)
+
+@include tablet
+    .app-navigation
+        &-brand
+            font-size: 1.5rem
+        &-menu
+            a
+                justify-content: center
+                flex-direction: column
+                padding: 0 20px
+
+@include mobile
+    .app-navigation
+        width: auto
+        &-brand
+            display: none
+            &-menu
+                a
+                    justify-content: center
+                    flex-direction: column
+                    padding: 0 20px

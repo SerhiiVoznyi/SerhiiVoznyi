@@ -1,0 +1,16 @@
+---
+description: Points agents to the repo-local AI operating system under .ai/
+alwaysApply: true
+---
+
+# AI operating system (authoritative location)
+
+Substantive engineering guidance lives under **`.ai/`**. Do not duplicate long policy in chat when it already exists in these files.
+
+- **`.ai/rules/`** — engineering conventions; read topic files (for example `engineering.md`) before substantive code changes.
+- **`.ai/agents/`** — per-agent behavioral contracts. Start from the role's `instructions.md`; the shared baseline is `.ai/agents/_shared/baseline.md`.
+- **`.ai/context/index.md`** — curated project pointers; read this first.
+- **`.ai/skills/`**, **`.ai/workflows/`** — reusable capability modules and multi-step orchestrations.
+- **`.ai/templates/`** — canonical templates for new artifacts. Seed from here; do not hand-roll.
+
+When in doubt, follow files in `.ai/rules/` and the agent profile in `.ai/agents/<role>/instructions.md`.
