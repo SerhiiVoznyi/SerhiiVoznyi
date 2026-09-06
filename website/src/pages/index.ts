@@ -1,7 +1,0 @@
-export { About } from './about'
-export { Home } from './home'
-export { Login } from './login'
-export { Posts } from './posts'
-export { PostDetail } from './posts/post-detail'
-export { Register } from './Registration'
-export { User } from './user'

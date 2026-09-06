@@ -3,13 +3,6 @@ import { defineConfig } from 'vite'
 
 const config = defineConfig({
   plugins: [react()],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "./src/_mantine";`,
-      },
-    },
-  },
   optimizeDeps: {
     include: ['react-router-dom'],
   },
