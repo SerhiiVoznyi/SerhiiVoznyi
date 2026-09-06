@@ -4,7 +4,7 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 ## AI agent OS
 
-This repository includes a repo-local layout for AI-assisted workflows (skills, workflows, tasks, rules). See [`.ai/README.md`](.ai/README.md).
+This repository includes a repo-local AI operating system (context, rules, agents, skills, workflows, templates). See [`.ai/README.md`](.ai/README.md).
 
 Currently, two official plugins are available:
 
