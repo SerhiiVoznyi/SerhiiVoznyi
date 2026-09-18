@@ -1,0 +1,156 @@
+.home
+    width: min(44rem, 100%)
+    padding: 1.5rem 1.25rem 2rem
+    display: flex
+    flex-direction: column
+    gap: 2rem
+
+.home-hero
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    gap: 0.85rem
+    animation: home-rise 700ms ease both
+
+    &__location
+        margin: 0
+        font-size: 0.95rem
+        letter-spacing: 0.08em
+        text-transform: uppercase
+        color: var(--app-text-color-muted)
+        animation: home-rise 700ms ease both
+        animation-delay: 80ms
+
+    &__name
+        margin: 0
+        font-size: clamp(2.75rem, 8vw, 4.5rem)
+        font-weight: 900
+        line-height: 0.95
+        letter-spacing: -0.03em
+        color: var(--app-text-color-main)
+        animation: home-rise 700ms ease both
+        animation-delay: 140ms
+
+    &__role
+        margin: 0
+        font-size: clamp(1.1rem, 2.4vw, 1.35rem)
+        font-weight: 500
+        color: var(--app-accent)
+        animation: home-rise 700ms ease both
+        animation-delay: 200ms
+
+    &__summary
+        margin: 0.35rem 0 0
+        max-width: 36rem
+        font-size: 1.08rem
+        line-height: 1.55
+        text-align: left
+        color: var(--app-text-color-main)
+        animation: home-rise 700ms ease both
+        animation-delay: 260ms
+
+    &__actions
+        margin-top: 1rem
+        animation: home-rise 700ms ease both
+        animation-delay: 320ms
+
+    &__cta
+        font-weight: 600
+
+        &--primary
+            background: var(--app-accent)
+            color: #fff
+
+            &:hover
+                background: var(--app-accent-strong)
+
+.home-section
+    display: flex
+    flex-direction: column
+    gap: 0.85rem
+    animation: home-rise 700ms ease both
+    animation-delay: 380ms
+
+    &__title
+        margin: 0
+        font-size: 1.35rem
+        font-weight: 700
+        letter-spacing: -0.02em
+        color: var(--app-text-color-main)
+
+    &__body
+        margin: 0
+        font-size: 1.05rem
+        line-height: 1.6
+        text-align: left
+        color: var(--app-text-color-main)
+
+.home-focus
+    margin: 0
+    padding: 0
+    list-style: none
+    display: flex
+    flex-direction: column
+    gap: 0.65rem
+
+    li
+        position: relative
+        padding-left: 1.1rem
+        line-height: 1.5
+        text-align: left
+
+        &::before
+            content: ''
+            position: absolute
+            left: 0
+            top: 0.55em
+            width: 0.45rem
+            height: 0.45rem
+            border-radius: 50%
+            background: var(--app-accent)
+
+.home-stack
+    margin: 0
+    padding: 0
+    list-style: none
+    display: flex
+    flex-wrap: wrap
+    gap: 0.55rem 1.1rem
+
+    li
+        font-weight: 600
+        color: var(--app-text-color-main)
+        border-bottom: 2px solid var(--app-accent-soft)
+
+.home-connect
+    display: flex
+    flex-wrap: wrap
+    gap: 1rem 1.5rem
+    margin-top: 0.25rem
+
+    a
+        font-weight: 600
+        color: var(--app-accent)
+        text-decoration: underline
+        text-underline-offset: 0.2em
+
+        &:hover
+            color: var(--app-accent-strong)
+
+@keyframes home-rise
+    from
+        opacity: 0
+        transform: translateY(0.75rem)
+    to
+        opacity: 1
+        transform: translateY(0)
+
+@media (prefers-reduced-motion: reduce)
+    .home-hero,
+    .home-hero__location,
+    .home-hero__name,
+    .home-hero__role,
+    .home-hero__summary,
+    .home-hero__actions,
+    .home-section
+        animation: none

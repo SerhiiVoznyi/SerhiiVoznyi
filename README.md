@@ -1,9 +1,12 @@
+
 # Hi, I'm Serhii Voznyi
 
 🎯 **Lead Software Engineer · .NET / AWS Architect · Backend & Cloud Systems**  
 📍 Wrocław, Poland · 🌍 Open to remote / EU  
 💼 **Open to:** Lead Engineer · Principal Engineer · Software Architect · Solutions Architect  
 🔗 [LinkedIn](https://www.linkedin.com/in/serhii-voznyi/) • 🐙 [GitHub](https://github.com/serhiivoznyi) • ✉️ [Email](mailto:serhiivoznyi@gmail.com)
+
+![Serhii Voznyi — Lead Software Engineer](./.assets/banner.png)
 
 ---
 

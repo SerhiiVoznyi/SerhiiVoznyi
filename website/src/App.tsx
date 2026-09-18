@@ -9,11 +9,22 @@ import { AppRouter } from './router'
 
 const App = () => {
   return (
-    <MantineProvider>
+    <MantineProvider
+      theme={{
+        fontFamily: "'Source Sans 3', sans-serif",
+        headings: { fontFamily: "'Source Sans 3', sans-serif" },
+      }}>
       <BrowserRouter>
-        <main className="app-page">
-          <AppRouter />
-        </main>
+        <div className="app-shell">
+          <main className="app-page">
+            <AppRouter />
+          </main>
+          <footer className="app-footer">
+            <p>
+              <small>&copy; {new Date().getFullYear()} Serhii Voznyi</small>
+            </p>
+          </footer>
+        </div>
       </BrowserRouter>
     </MantineProvider>
   )
