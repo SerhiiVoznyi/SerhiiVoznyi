@@ -37,7 +37,6 @@ export const ArticlePage = () => {
           depth={2}
           region="right"
           glitch
-          magnify
         />
         <div
           className="article__title layer"

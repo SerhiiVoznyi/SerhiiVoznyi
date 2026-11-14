@@ -45,7 +45,7 @@ export const ProfilePage = () => (
         className="profile__figure"
       />
       <Decal
-        src="/assets/art/decal-serpent.webp"
+        src="/assets/art/logo-serpent-s.webp"
         className="profile__decal"
         rotate={14}
       />

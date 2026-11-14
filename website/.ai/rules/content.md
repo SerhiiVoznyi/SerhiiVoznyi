@@ -18,6 +18,8 @@
 - Plates and textures go in `public/assets/art/` as WebP, roughly 1280px wide and about 200 KB or less. Decorative images use `alt=""` and `aria-hidden`.
 - Reference artwork through `Plate src`, `Decal src`, or the `--app-art-*` CSS variables so it can be swapped without touching layout.
 - `profile-figure.webp` is a placeholder illustration with a hidden face; replace it rather than generating a likeness of a real person.
+- Existing art is final. Never regenerate, re-render, overwrite, recolor or "improve" any image in `public/assets/art/` (including `logo-serpent-s.webp`) unless the user explicitly asks for that specific file by name in the current request. Approval is per image: a request to regenerate one image does not extend to others, and a general request (for example "refresh the art") is not approval, so ask first.
+- New images get new file names; never replace an existing asset as a side effect of another task.
 
 ## Audio
 

@@ -34,7 +34,7 @@ export const ContactPage = () => (
         caption={`Open relay // ${PROFILE.location}`}
       />
       <Decal
-        src="/assets/art/decal-serpent.webp"
+        src="/assets/art/logo-serpent-s.webp"
         className="contact__decal"
         rotate={10}
       />

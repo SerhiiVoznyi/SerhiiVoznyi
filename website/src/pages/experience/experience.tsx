@@ -45,7 +45,7 @@ export const ExperiencePage = () => (
         caption="Plate // Where the systems live"
       />
       <Decal
-        src="/assets/art/decal-serpent.webp"
+        src="/assets/art/logo-serpent-s.webp"
         className="experience__decal"
       />
       <div

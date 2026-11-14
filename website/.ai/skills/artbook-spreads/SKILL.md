@@ -20,11 +20,10 @@ Read [spread-architecture](../../rules/spread-architecture.md) and [design-syste
       depth={2}
       region="right"
       glitch
-      magnify
       caption="…"
     />
     <Decal
-      src="/assets/art/decal-serpent.webp"
+      src="/assets/art/logo-serpent-s.webp"
       className="experience__decal"
     />
     <div
@@ -62,7 +61,7 @@ Read [spread-architecture](../../rules/spread-architecture.md) and [design-syste
 - `kind` matches the registry entry: `map`, `art`, `paper` or `split`.
 - `initialOrder` lists sheet ids front to back.
 - `SheetStack` regions: `full`, `left`, `right`, `map`, or `full` plus a page class with a custom `inset`.
-- `Plate` props: `depth` (positive is farther), `region` (`full` / `left` / `right` / `figure`), `tone` (`color` / `mono` / `dim`), `glitch` (RGB-split fringe), `magnify` (zoom affordance), `caption`, `focus` (crop).
+- `Plate` props: `depth` (positive is farther), `region` (`full` / `left` / `right` / `figure`), `tone` (`color` / `mono` / `dim`), `glitch` (RGB-split fringe), `caption`, `focus` (crop). Plates have no zoom or magnify button; do not add one.
 - `Decal` defaults to depth `-1`, in front of the front sheet.
 
 ## Depth scale

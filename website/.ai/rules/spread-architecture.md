@@ -18,6 +18,7 @@ Invariants of the reader, the sheet stack and the page turn. Breaking one of the
 - 3D containers (`.sheet-scene__rig`, `.sheet-stack`) have `pointer-events: none` because their plane sits in front of layers pushed back in Z; layers re-enable pointer events. Any new `preserve-3d` wrapper must follow the same rule or it will swallow clicks.
 - `.layer` owns `transform`; the entering animation drives the individual `translate` property and `opacity`. Position layers with `top` / `left` / `inset` / `margin`, never with `translate`, and do not end keyframes on hard-coded opacity.
 - Map markers and other elements that must stay pinned to artwork are children of that `Plate`, not separate layers.
+- Plates carry no zoom or magnify buttons. Do not add a per-artwork zoom control to `Plate` or any page; reader zoom lives only in the reader chrome.
 
 ## Sheets
 

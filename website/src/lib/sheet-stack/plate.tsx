@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 
 import { type CSSVars, cx } from '../cx'
-import { useReader } from '../reader'
 
 type PlateProps = {
   /** Raster art for the plate; omit it when the children draw the artwork themselves. */
@@ -10,7 +9,6 @@ type PlateProps = {
   region?: 'full' | 'left' | 'right' | 'figure'
   tone?: 'color' | 'mono' | 'dim'
   glitch?: boolean
-  magnify?: boolean
   caption?: string
   /** CSS object-position for the artwork crop. */
   focus?: string
@@ -25,14 +23,11 @@ export const Plate = ({
   region = 'full',
   tone = 'color',
   glitch = false,
-  magnify = false,
   caption,
   focus = 'center',
   className,
   children,
 }: PlateProps) => {
-  const { zoom, zoomTo } = useReader()
-
   return (
     <div
       className={cx('plate', 'layer', `plate--${region}`, className)}
@@ -57,18 +52,6 @@ export const Plate = ({
           <span aria-hidden="true">// </span>
           {caption}
         </p>
-      )}
-      {magnify && (
-        <button
-          type="button"
-          className="plate__magnify"
-          onClick={() => zoomTo(zoom > 1 ? 1 : 2)}
-          aria-label={zoom > 1 ? 'Zoom back out' : 'Zoom in on artwork'}>
-          <i
-            className={cx('las', zoom > 1 ? 'la-search-minus' : 'la-search-plus')}
-            aria-hidden="true"
-          />
-        </button>
       )}
     </div>
   )
