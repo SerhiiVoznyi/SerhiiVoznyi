@@ -59,3 +59,6 @@ playwright-report/
 /website/node_modules
 ./website/dist
 /website/dist
+
+# Licensed soundtrack audio: deployed separately, never committed
+/website/public/assets/audio/*.mp3

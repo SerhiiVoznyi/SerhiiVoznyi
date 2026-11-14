@@ -1,0 +1,176 @@
+@use 'mixins' as *
+
+.spread-back
+    position: absolute
+    top: 3.2%
+    left: 2.2%
+
+.sheet-scene[data-view='single'] .spread-back
+    top: 1.5%
+    left: 3%
+
+.spread-kicker
+    margin: 0
+    @include hud-label
+    color: var(--app-color-cyan)
+
+    &--red
+        color: var(--app-color-red)
+
+.sheet-text
+    margin: 0 0 0.85rem
+    font-size: 0.98rem
+    line-height: 1.58
+
+    &--lead
+        font-family: var(--app-font-display)
+        font-size: 1.12rem
+        font-weight: 600
+        line-height: 1.35
+
+.data-rows
+    display: grid
+    grid-template-columns: max-content 1fr
+    gap: 0.55rem 1.1rem
+    margin: 0
+
+    dt
+        @include hud-label
+        padding-top: 0.2rem
+        opacity: 0.7
+
+    dd
+        margin: 0
+        font-family: var(--app-font-display)
+        font-weight: 700
+        letter-spacing: 0.02em
+        text-transform: uppercase
+
+.focus-list
+    display: flex
+    flex-direction: column
+    gap: 0.6rem
+    margin: 0
+    padding: 0
+    list-style: none
+
+    li
+        position: relative
+        padding-left: 1.4rem
+        line-height: 1.45
+
+        &::before
+            content: ''
+            position: absolute
+            top: 0.42em
+            left: 0
+            width: 0.6rem
+            height: 0.6rem
+            background: var(--app-color-ink)
+            @include notch-corner(3px)
+
+.chip-row
+    display: flex
+    flex-wrap: wrap
+    gap: 0.45rem
+    margin: 0
+    padding: 0
+    list-style: none
+
+.prose
+    font-size: 0.98rem
+    line-height: 1.62
+
+    > :first-child
+        margin-top: 0
+
+    p, ul, ol, blockquote, pre, table
+        margin: 0 0 0.95rem
+
+    h3, h4, h5
+        margin: 1.5rem 0 0.6rem
+        font-family: var(--app-font-display)
+        font-weight: 700
+        line-height: 1.15
+        text-transform: uppercase
+
+    h3
+        font-size: 1.12rem
+
+        &::before
+            content: '// '
+            color: var(--app-color-ink-muted)
+
+    h4
+        font-size: 1rem
+
+    ul, ol
+        padding-left: 1.3rem
+
+    li + li
+        margin-top: 0.3rem
+
+    a
+        font-weight: 600
+        text-decoration: underline
+        text-decoration-thickness: 2px
+        text-underline-offset: 0.18em
+
+        &:hover
+            background: var(--app-color-yellow)
+
+    strong
+        font-weight: 700
+
+    blockquote
+        padding: 0.6rem 0.9rem
+        font-family: var(--app-font-display)
+        font-size: 1.05rem
+        font-weight: 600
+        background: var(--app-color-yellow)
+        border-left: 6px solid var(--app-color-ink)
+
+        p:last-child
+            margin-bottom: 0
+
+    code
+        padding: 0.05rem 0.3rem
+        font-family: var(--app-font-mono)
+        font-size: 0.86em
+        color: var(--app-color-yellow)
+        background: var(--app-color-ink)
+
+    pre
+        padding: 0.85rem 1rem
+        overflow-x: auto
+        color: var(--app-color-paper)
+        background: var(--app-color-ink)
+        border-left: 4px solid var(--app-color-cyan)
+
+        code
+            padding: 0
+            color: inherit
+            background: none
+            font-size: 0.82rem
+            line-height: 1.55
+
+    table
+        width: 100%
+        border-collapse: collapse
+        font-size: 0.88rem
+
+    th, td
+        padding: 0.4rem 0.55rem
+        text-align: left
+        border: 1px solid var(--app-color-ink)
+
+    th
+        @include hud-label
+        color: var(--app-color-yellow)
+        background: var(--app-color-ink)
+
+    hr
+        height: 0.5rem
+        margin: 1.5rem 0
+        border: 0
+        @include hazard-stripe(var(--app-color-ink), transparent, 6px)

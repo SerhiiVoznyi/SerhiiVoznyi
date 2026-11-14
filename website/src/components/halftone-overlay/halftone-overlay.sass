@@ -1,0 +1,19 @@
+@use '../../styles/mixins' as *
+
+.halftone-overlay
+    position: absolute
+    inset: 0
+    pointer-events: none
+
+    &--ink
+        @include halftone(rgba(18, 18, 18, 0.14), 5px)
+        mask-image: linear-gradient(135deg, #000, transparent 60%)
+
+    &--light
+        background-image: var(--app-art-halftone)
+        background-size: 360px 360px
+        mix-blend-mode: screen
+        opacity: 0.12
+
+body[data-fx='reduced'] .halftone-overlay
+    display: none

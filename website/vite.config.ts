@@ -3,6 +3,9 @@ import { defineConfig } from 'vite'
 
 const config = defineConfig({
   plugins: [react()],
+  resolve: {
+    tsconfigPaths: true,
+  },
   optimizeDeps: {
     include: ['react-router-dom'],
   },

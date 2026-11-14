@@ -14,3 +14,5 @@ Substantive engineering guidance lives under **`.ai/`**. Do not duplicate long p
 - **`.ai/templates/`** — canonical templates for new artifacts. Seed from here; do not hand-roll.
 
 When in doubt, follow files in `.ai/rules/` and the agent profile in `.ai/agents/<role>/instructions.md`. Keep `.cursor/` thin — pointer rules only.
+
+Repo-root `AGENTS.md` is the portable entry for other agents; it also defers to `.ai/`.

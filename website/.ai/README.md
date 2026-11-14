@@ -11,4 +11,6 @@ Canonical AI guidance for this repository lives here.
 | [`workflows/`](workflows/) | Multi-step playbooks                                                       |
 | [`templates/`](templates/) | Skeletons for new skills, agents, and rules                                |
 
+Repo-root [`AGENTS.md`](../AGENTS.md) is the cross-tool entry point (Cursor, Codex, Copilot, Claude Code). Keep it a short map into this folder; put policy here, not there.
+
 Use **kebab-case** for multi-word file and folder names.

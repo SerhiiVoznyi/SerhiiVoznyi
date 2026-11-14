@@ -1,0 +1,41 @@
+@use '../../styles/mixins' as *
+
+.hud-button
+    display: inline-grid
+    place-items: center
+    width: 2rem
+    height: 1.75rem
+    padding: 0
+    font-size: 1rem
+    color: var(--app-color-cyan)
+    background: transparent
+    border: 1px solid transparent
+    cursor: pointer
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease
+
+    &--boxed
+        border-color: var(--app-color-cyan-dim)
+
+    &:hover:not(:disabled)
+        color: var(--app-color-ink)
+        background: var(--app-color-cyan)
+        border-color: var(--app-color-cyan)
+
+    &[aria-pressed='true']
+        color: var(--app-color-ink)
+        background: var(--app-color-cyan)
+
+    &:disabled
+        cursor: not-allowed
+        opacity: 0.35
+        color: var(--app-color-cyan)
+        background: transparent
+
+.hud-tooltip
+    @include hud-label
+    padding: 0.3rem 0.55rem
+    font-size: 0.68rem
+    color: var(--app-color-cyan)
+    background: var(--app-color-void)
+    border: 1px solid var(--app-color-cyan-dim)
+    border-radius: 0

@@ -17,6 +17,7 @@ Read this first before substantive changes.
 
 ## AI OS
 
+- Cross-tool entry: [`AGENTS.md`](../../AGENTS.md) (pointer into `.ai/`)
 - Rules: [`.ai/rules/`](../rules/)
 - Agents: [`.ai/agents/`](../agents/)
 - Skills / workflows / templates: sibling folders under [`.ai/`](../)

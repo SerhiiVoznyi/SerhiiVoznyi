@@ -1,0 +1,134 @@
+@use '../../styles/mixins' as *
+
+.map
+    --single-stack-top: 40%
+
+    .map__shade
+        position: absolute
+        inset: 0
+        background: linear-gradient(90deg, transparent 30%, rgba(10, 10, 11, 0.72) 62%, rgba(10, 10, 11, 0.9)), linear-gradient(0deg, rgba(10, 10, 11, 0.7), transparent 55%)
+
+    .map__block
+        top: 0
+        right: 0
+        bottom: 0
+        width: 7%
+        background: var(--app-color-yellow)
+        clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%, 0 58%, 18% 55%)
+
+        &::after
+            content: ''
+            position: absolute
+            top: 46%
+            left: 32%
+            width: 0.35rem
+            height: 3rem
+            background: repeating-linear-gradient(180deg, var(--app-color-ink) 0 4px, transparent 4px 9px)
+
+    .map__title
+        top: 14%
+        right: 10%
+        width: 38%
+        display: flex
+        flex-direction: column
+        gap: 0.8rem
+
+    .map__rule
+        width: 9rem
+
+    .map__role
+        margin: 0
+        @include hud-label
+        font-size: 0.78rem
+        line-height: 1.8
+        color: var(--app-color-yellow)
+
+    .map__markers
+        position: absolute
+        inset: 0
+
+        ul
+            margin: 0
+            padding: 0
+            list-style: none
+
+    .map__marker
+        position: absolute
+        top: var(--marker-y)
+        left: var(--marker-x)
+
+        a
+            display: flex
+            align-items: center
+            gap: 0.55rem
+            color: var(--app-text-color-main)
+
+            &:hover .map__marker-label,
+            &:focus-visible .map__marker-label
+                color: var(--app-color-ink)
+                background: var(--app-color-cyan)
+
+    .map__marker-pin
+        position: relative
+        width: 0.9rem
+        height: 0.9rem
+        border: 2px solid var(--app-color-cyan)
+        transform: rotate(45deg)
+
+        &::after
+            content: ''
+            position: absolute
+            inset: -0.55rem
+            border: 1px solid var(--app-color-cyan-dim)
+            animation: map-ping 2.6s ease-out infinite
+
+    .map__marker--active .map__marker-pin
+        background: var(--app-color-yellow)
+        border-color: var(--app-color-yellow)
+
+    .map__marker-label
+        display: flex
+        gap: 0.45rem
+        padding: 0.25rem 0.55rem
+        @include hud-label
+        font-size: 0.74rem
+        background: rgba(10, 10, 11, 0.85)
+        border: 1px solid var(--app-color-cyan-dim)
+        transition: background-color 140ms ease, color 140ms ease
+
+    .map__marker-index
+        color: var(--app-color-yellow)
+
+    .map__briefing
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        gap: 0.75rem
+
+        .sheet-text
+            margin: 0
+            font-size: 0.92rem
+            line-height: 1.5
+
+    &[data-view='single']
+        .map__block,
+        .map__markers
+            display: none
+
+        .map__title
+            top: 9%
+            left: 5%
+            right: 5%
+            width: auto
+
+@keyframes map-ping
+    0%
+        opacity: 0.9
+        transform: scale(0.6)
+    100%
+        opacity: 0
+        transform: scale(1.5)
+
+@media (prefers-reduced-motion: reduce)
+    .map .map__marker-pin::after
+        animation: none

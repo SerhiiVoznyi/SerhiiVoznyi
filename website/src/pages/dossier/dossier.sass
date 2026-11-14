@@ -1,0 +1,28 @@
+.dossier
+    --single-stack-top: 22%
+
+    .dossier__decal
+        top: 10%
+        right: 6%
+
+    .dossier__title
+        left: 55%
+        bottom: 10%
+        display: flex
+        flex-direction: column
+        gap: 0.5rem
+        padding: 1rem 1.25rem 0.9rem
+        background: rgba(10, 10, 11, 0.78)
+        border-left: 4px solid var(--app-color-yellow)
+
+    .dossier__rule
+        margin-bottom: 1rem
+
+    &[data-view='single']
+        .dossier__title
+            top: 7%
+            left: 4%
+            bottom: auto
+            padding: 0
+            background: none
+            border: 0

@@ -1,0 +1,78 @@
+@use '../../styles/mixins' as *
+
+.transmissions
+    --single-stack-top: 22%
+
+    .transmissions__title
+        top: 11%
+        left: 3%
+        display: flex
+        align-items: baseline
+        flex-wrap: wrap
+        gap: 0.5rem 1.5rem
+
+    .transmissions__stack
+        inset: 29% 3% 5% 3%
+
+    .transmissions__grid
+        display: grid
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr))
+        gap: 1rem
+
+    .transmissions__all,
+    .transmissions__clear
+        padding: 0.2rem 0.6rem
+        @include hud-label
+        font-size: 0.72rem
+        color: inherit
+        background: transparent
+        border: 1px solid currentColor
+        cursor: pointer
+
+        &[aria-pressed='true']
+            color: var(--app-color-yellow)
+            background: var(--app-color-ink)
+
+    .transmissions__clear
+        margin-top: 1rem
+
+        &:hover
+            color: var(--app-color-ink)
+            background: var(--app-color-yellow)
+
+    .transmissions__log
+        display: flex
+        flex-direction: column
+        margin: 0
+        padding: 0
+        list-style: none
+
+        li
+            display: grid
+            grid-template-columns: 7rem 1fr
+            gap: 1rem
+            padding: 0.55rem 0
+            border-bottom: 1px solid var(--app-color-void-line)
+
+        time
+            @include hud-label
+            color: var(--app-color-cyan)
+
+        a
+            font-family: var(--app-font-display)
+            font-weight: 600
+
+            &:hover
+                color: var(--app-color-yellow)
+
+    &[data-view='single']
+        .transmissions__title
+            top: 9%
+            left: 4%
+
+        .transmissions__stack
+            inset: var(--single-stack-top) 4% 4% 4%
+
+        .transmissions__log li
+            grid-template-columns: 1fr
+            gap: 0.2rem

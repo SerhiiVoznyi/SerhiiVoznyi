@@ -20,11 +20,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"],
-  "paths": {
-    "@paws4care/*": ["*"]
-  },
   "references": [{ "path": "./tsconfig.node.json" }]
 }

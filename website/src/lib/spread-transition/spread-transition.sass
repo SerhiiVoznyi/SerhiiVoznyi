@@ -1,0 +1,105 @@
+.spread-transition
+    position: absolute
+    inset: 0
+
+.spread-transition__page
+    position: absolute
+    inset: 0
+    transform-origin: 0% 50%
+    backface-visibility: hidden
+
+    .spread-transition[data-direction='backward'] &
+        transform-origin: 100% 50%
+
+    .spread-transition[data-phase='exiting'] &
+        animation: spread-turn-forward var(--spread-turn-exit) var(--spread-turn-ease) forwards
+        will-change: transform, opacity
+        pointer-events: none
+
+    .spread-transition[data-phase='exiting'][data-direction='backward'] &
+        animation-name: spread-turn-backward
+
+// Entering: the new spread's layers settle forward from the back of the stack, farthest first.
+.spread-transition[data-phase='entering'] .layer
+    --settle-delay: calc(clamp(0, 3 - var(--layer-depth, 0), 4) * 45ms)
+    animation: layer-settle calc(var(--spread-turn-enter) - var(--settle-delay)) var(--spread-settle-ease) var(--settle-delay) both
+    will-change: translate, opacity
+
+.spread-transition__burst
+    position: absolute
+    inset: 0
+    pointer-events: none
+    opacity: 0
+    mix-blend-mode: screen
+    background: repeating-linear-gradient(180deg, transparent 0 6px, rgba(0, 240, 255, 0.5) 6px 8px, transparent 8px 19px, rgba(255, 0, 60, 0.45) 19px 21px), linear-gradient(90deg, transparent 20%, rgba(252, 238, 10, 0.18) 50%, transparent 80%)
+
+    .spread-transition[data-phase='exiting'] &
+        animation: spread-burst var(--spread-turn-exit) steps(1) forwards
+
+    body[data-fx='reduced'] &
+        display: none
+
+@keyframes spread-turn-forward
+    0%
+        transform: rotateY(0deg)
+        opacity: 1
+        filter: none
+    45%
+        filter: drop-shadow(-4px 0 0 rgba(255, 0, 60, 0.7)) drop-shadow(4px 0 0 rgba(0, 240, 255, 0.7))
+    100%
+        transform: rotateY(-96deg) translateZ(30px)
+        opacity: 0.2
+        filter: none
+
+@keyframes spread-turn-backward
+    0%
+        transform: rotateY(0deg)
+        opacity: 1
+        filter: none
+    45%
+        filter: drop-shadow(4px 0 0 rgba(255, 0, 60, 0.7)) drop-shadow(-4px 0 0 rgba(0, 240, 255, 0.7))
+    100%
+        transform: rotateY(96deg) translateZ(30px)
+        opacity: 0.2
+        filter: none
+
+// No end opacity, so layers land on whatever opacity their own rules give them.
+@keyframes layer-settle
+    from
+        translate: 0 0 -260px
+        opacity: 0
+    to
+        translate: 0 0 0
+
+@keyframes spread-burst
+    0%
+        opacity: 0
+    38%
+        opacity: 0.9
+        clip-path: inset(18% 0 52% 0)
+        transform: translateX(-12px)
+    52%
+        opacity: 0.75
+        clip-path: inset(60% 0 12% 0)
+        transform: translateX(10px)
+    66%
+        opacity: 0.85
+        clip-path: inset(4% 0 80% 0)
+        transform: translateX(-4px)
+    80%, 100%
+        opacity: 0
+
+@media (prefers-reduced-motion: reduce)
+    .spread-transition[data-phase='exiting'] .spread-transition__page
+        animation: none
+        opacity: 0
+
+    .spread-transition[data-phase='entering'] .layer
+        animation: layer-fade var(--spread-turn-enter) ease both
+
+    .spread-transition__burst
+        display: none
+
+@keyframes layer-fade
+    from
+        opacity: 0

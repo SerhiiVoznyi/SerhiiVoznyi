@@ -1,8 +1,45 @@
 body
-    --app-color-main: #f7f5f1
-    --app-color-main-soft: #eef3f2
-    --app-text-color-main: #1c2422
-    --app-text-color-muted: #5c6b67
-    --app-accent: #1f5c57
-    --app-accent-strong: #164843
-    --app-accent-soft: #c5ddd9
+    --app-color-void: #0a0a0b
+    --app-color-void-raised: #121316
+    --app-color-void-line: #23262b
+    --app-color-yellow: #fcee0a
+    --app-color-yellow-deep: #c9bd00
+    --app-color-cyan: #00f0ff
+    --app-color-cyan-dim: rgba(0, 240, 255, 0.32)
+    --app-color-cyan-ghost: rgba(0, 240, 255, 0.08)
+    --app-color-red: #ff003c
+    --app-color-paper: #ece7d9
+    --app-color-paper-shade: #d6cfbb
+    --app-color-ink: #121212
+    --app-color-ink-muted: #4d4a43
+
+    --app-color-main: var(--app-color-void)
+    --app-text-color-main: #e8e6df
+    --app-text-color-muted: #8b9096
+
+    --app-font-display: 'Chakra Petch', 'Source Sans 3', sans-serif
+    --app-font-mono: 'Share Tech Mono', ui-monospace, 'Cascadia Mono', monospace
+    --app-font-body: 'Source Sans 3', system-ui, sans-serif
+
+    --app-chrome-top: 3.25rem
+    --app-chrome-bottom: 3.75rem
+    --app-chrome-gutter: clamp(0.75rem, 3vw, 2.5rem)
+    --app-notch: 14px
+
+    --app-art-paper-grain: url('/assets/art/paper-grain.webp')
+    --app-art-halftone: url('/assets/art/halftone-noise.webp')
+
+    --sheet-step-scale: 0.04
+    --sheet-step-blur: 0.6px
+    --sheet-step-dim: 0.12
+    --sheet-step-z: -40px
+    --sheet-step-rot: 0.6deg
+    --parallax-cap: 18px
+
+    --spread-turn-ease: cubic-bezier(0.7, 0, 0.3, 1)
+    --spread-settle-ease: cubic-bezier(0.16, 1, 0.3, 1)
+
+body[data-fx='reduced']
+    --sheet-step-blur: 0px
+    --app-art-paper-grain: none
+    --app-art-halftone: none

@@ -1,0 +1,43 @@
+.display-title
+    --title-ink: var(--app-color-yellow)
+    --title-leading: 0.84em
+    margin: 0
+    font-family: var(--app-font-display)
+    font-weight: 700
+    line-height: var(--title-leading)
+    letter-spacing: -0.01em
+    text-transform: uppercase
+
+    &:focus
+        outline: none
+
+    &--yellow
+        --title-ink: var(--app-color-yellow)
+
+    &--ink
+        --title-ink: var(--app-color-ink)
+
+    &--red
+        --title-ink: var(--app-color-red)
+
+    &--xl
+        font-size: clamp(2.4rem, min(19cqh, 9.5cqw), 10rem)
+
+    &--lg
+        font-size: clamp(2rem, min(13cqh, 7cqw), 7rem)
+
+    &--md
+        --title-leading: 0.95em
+        font-size: clamp(1.5rem, min(7cqh, 3.6cqw), 3.5rem)
+
+// A hairline cut through every glyph gives the stencilled, chopped lettering of the reference.
+// The gradient tiles once per line box so wrapped titles are cut on every line.
+.display-title__line
+    display: block
+    color: transparent
+    background: linear-gradient(180deg, var(--title-ink) 0 55%, transparent 55% 59%, var(--title-ink) 59%) 0 0 / 100% var(--title-leading) repeat-y
+    background-clip: text
+    -webkit-background-clip: text
+
+    @supports not (background-clip: text)
+        color: var(--title-ink)

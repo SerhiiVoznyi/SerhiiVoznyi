@@ -1,0 +1,11 @@
+.decal
+    width: clamp(3.5rem, 9cqw, 9rem)
+    height: auto
+    pointer-events: none
+    user-select: none
+    transform: translate3d(var(--layer-shift-x), var(--layer-shift-y), calc(var(--layer-depth) * var(--sheet-step-z))) rotate(var(--decal-rotate))
+    filter: drop-shadow(3px 5px 0 rgba(0, 0, 0, 0.5))
+    transition: transform 700ms var(--spread-settle-ease)
+
+.sheet-scene[data-view='single'] .decal
+    display: none

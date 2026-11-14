@@ -1,0 +1,35 @@
+@use '../../styles/mixins' as *
+
+.tag-chip
+    display: inline-flex
+    align-items: center
+    gap: 0.2rem
+    padding: 0.2rem 0.5rem
+    @include hud-label
+    font-size: 0.72rem
+    color: inherit
+    background: transparent
+    border: 1px solid currentColor
+
+    &--interactive
+        cursor: pointer
+
+        &:hover
+            color: var(--app-color-ink)
+            background: var(--app-color-yellow)
+            border-color: var(--app-color-ink)
+
+        &[aria-pressed='true']
+            color: var(--app-color-yellow)
+            background: var(--app-color-ink)
+            border-color: var(--app-color-ink)
+
+.tag-chip__count
+    margin-left: 0.35rem
+    padding: 0 0.25rem
+    color: var(--app-color-paper)
+    background: var(--app-color-ink)
+
+    .tag-chip[aria-pressed='true'] &
+        color: var(--app-color-ink)
+        background: var(--app-color-yellow)

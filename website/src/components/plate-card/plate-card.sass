@@ -1,0 +1,76 @@
+@use '../../styles/mixins' as *
+
+.plate-card
+    min-width: 0
+
+.plate-card__link
+    position: relative
+    display: flex
+    flex-direction: column
+    gap: 0.45rem
+    height: 100%
+    padding: 0.6rem 0.6rem 0.85rem
+    color: var(--app-color-ink)
+    background: rgba(255, 255, 255, 0.35)
+    border: 2px solid var(--app-color-ink)
+    box-shadow: 4px 5px 0 var(--app-color-ink)
+    transition: transform 160ms ease, box-shadow 160ms ease
+
+    &:hover
+        transform: translate(-2px, -2px)
+        box-shadow: 7px 8px 0 var(--app-color-ink)
+
+        .plate-card__title
+            text-decoration: underline
+            text-decoration-thickness: 2px
+            text-underline-offset: 0.18em
+
+.plate-card__art
+    display: block
+    aspect-ratio: 16 / 8
+    background: var(--plate-src) center / cover no-repeat, var(--app-color-ink)
+    filter: grayscale(0.35) contrast(1.05)
+    border: 2px solid var(--app-color-ink)
+
+.plate-card__meta
+    display: flex
+    flex-wrap: wrap
+    gap: 0.25rem 0.75rem
+    @include hud-label
+    font-size: 0.64rem
+    color: var(--app-color-ink-muted)
+
+    > :first-child
+        color: var(--app-color-ink)
+        background: var(--app-color-yellow)
+        padding: 0 0.3rem
+
+.plate-card__title
+    margin: 0
+    font-family: var(--app-font-display)
+    font-size: 1.05rem
+    font-weight: 700
+    line-height: 1.15
+    text-transform: uppercase
+
+.plate-card__summary
+    margin: 0
+    font-size: 0.88rem
+    line-height: 1.45
+    color: var(--app-color-ink-muted)
+
+.plate-card__tags
+    display: flex
+    flex-wrap: wrap
+    gap: 0.4rem
+    margin-top: auto
+    @include hud-label
+    font-size: 0.62rem
+
+.plate-card--compact
+    .plate-card__link
+        padding: 0.55rem 0.7rem
+        box-shadow: 3px 4px 0 var(--app-color-ink)
+
+    .plate-card__title
+        font-size: 0.92rem
