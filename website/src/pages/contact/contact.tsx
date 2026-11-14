@@ -1,4 +1,4 @@
-import './uplink.sass'
+import './contact.sass'
 
 import { BackToMap, Decal, DisplayTitle, HazardRule, SocialLinks } from '@/components'
 import { PROFILE } from '@/content/profile'
@@ -11,10 +11,10 @@ import {
   SheetStackProvider,
 } from '@/lib/sheet-stack'
 
-export const UplinkPage = () => (
+export const ContactPage = () => (
   <SheetScene
     kind="split"
-    className="uplink"
+    className="contact"
     overlay={<BackToMap className="spread-back" />}>
     <SheetStackProvider initialOrder={['channels', 'signal']}>
       <Plate
@@ -26,20 +26,20 @@ export const UplinkPage = () => (
       />
       <Decal
         src="/assets/art/decal-serpent.webp"
-        className="uplink__decal"
+        className="contact__decal"
         rotate={10}
       />
       <div
-        className="uplink__title layer"
+        className="contact__title layer"
         style={{ '--layer-depth': 1 } as CSSVars}>
-        <p className="spread-kicker">Uplink // open a channel</p>
+        <p className="spread-kicker">Contact // open a channel</p>
         <DisplayTitle
-          lines={['Uplink']}
+          lines={['Contact']}
           spreadHeading
         />
       </div>
       <SheetStack
-        label="Uplink sheets"
+        label="Contact sheets"
         region="left">
         <Sheet
           id="channels"
@@ -51,7 +51,7 @@ export const UplinkPage = () => (
           <p className="sheet-text sheet-text--lead">{PROFILE.topics}</p>
           <HazardRule
             tone="ink"
-            className="uplink__rule"
+            className="contact__rule"
           />
           <SocialLinks />
         </Sheet>

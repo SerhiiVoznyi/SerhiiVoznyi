@@ -1,9 +1,9 @@
 @use '../../styles/mixins' as *
 
-.transmissions
+.journal
     --single-stack-top: 22%
 
-    .transmissions__title
+    .journal__title
         top: 11%
         left: 3%
         display: flex
@@ -11,16 +11,16 @@
         flex-wrap: wrap
         gap: 0.5rem 1.5rem
 
-    .transmissions__stack
+    .journal__stack
         inset: 29% 3% 5% 3%
 
-    .transmissions__grid
+    .journal__grid
         display: grid
         grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr))
         gap: 1rem
 
-    .transmissions__all,
-    .transmissions__clear
+    .journal__all,
+    .journal__clear
         padding: 0.2rem 0.6rem
         @include hud-label
         font-size: 0.72rem
@@ -33,14 +33,14 @@
             color: var(--app-color-yellow)
             background: var(--app-color-ink)
 
-    .transmissions__clear
+    .journal__clear
         margin-top: 1rem
 
         &:hover
             color: var(--app-color-ink)
             background: var(--app-color-yellow)
 
-    .transmissions__log
+    .journal__log
         display: flex
         flex-direction: column
         margin: 0
@@ -66,13 +66,13 @@
                 color: var(--app-color-yellow)
 
     &[data-view='single']
-        .transmissions__title
+        .journal__title
             top: 9%
             left: 4%
 
-        .transmissions__stack
+        .journal__stack
             inset: var(--single-stack-top) 4% 4% 4%
 
-        .transmissions__log li
+        .journal__log li
             grid-template-columns: 1fr
             gap: 0.2rem

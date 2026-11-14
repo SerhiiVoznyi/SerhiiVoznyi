@@ -4,7 +4,8 @@ import { type CSSVars, cx } from '../cx'
 import { useReader } from '../reader'
 
 type PlateProps = {
-  src: string
+  /** Raster art for the plate; omit it when the children draw the artwork themselves. */
+  src?: string
   depth: number
   region?: 'full' | 'left' | 'right' | 'figure'
   tone?: 'color' | 'mono' | 'dim'
@@ -40,14 +41,16 @@ export const Plate = ({
       style={
         {
           '--layer-depth': depth,
-          '--plate-src': `url('${src}')`,
+          '--plate-src': src ? `url('${src}')` : undefined,
           '--plate-focus': focus,
         } as CSSVars
       }>
-      <div
-        className="plate__art"
-        aria-hidden="true"
-      />
+      {src && (
+        <div
+          className="plate__art"
+          aria-hidden="true"
+        />
+      )}
       {children}
       {caption && (
         <p className="plate__caption">

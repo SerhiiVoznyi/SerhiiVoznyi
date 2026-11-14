@@ -1,4 +1,4 @@
-import './transmissions.sass'
+import './journal.sass'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -39,7 +39,7 @@ const FrequencyTuner = ({ activeTag, onSelect }: FrequencyTunerProps) => {
         <li>
           <button
             type="button"
-            className="transmissions__all"
+            className="journal__all"
             aria-pressed={activeTag === null}
             onClick={() => select(null)}>
             All {posts.length}
@@ -60,7 +60,7 @@ const FrequencyTuner = ({ activeTag, onSelect }: FrequencyTunerProps) => {
   )
 }
 
-export const TransmissionsPage = () => {
+export const JournalPage = () => {
   const posts = getPosts()
   const [activeTag, setActiveTag] = useState<string | null>(null)
   const visible = activeTag
@@ -70,7 +70,7 @@ export const TransmissionsPage = () => {
   return (
     <SheetScene
       kind="paper"
-      className="transmissions"
+      className="journal"
       overlay={<BackToMap className="spread-back" />}>
       <SheetStackProvider initialOrder={['index', 'frequencies', 'archive']}>
         <Plate
@@ -79,10 +79,10 @@ export const TransmissionsPage = () => {
           tone="dim"
         />
         <div
-          className="transmissions__title layer"
+          className="journal__title layer"
           style={{ '--layer-depth': 1 } as CSSVars}>
           <DisplayTitle
-            lines={['Transmissions']}
+            lines={['Journal']}
             size="lg"
             spreadHeading
           />
@@ -91,18 +91,18 @@ export const TransmissionsPage = () => {
           </p>
         </div>
         <SheetStack
-          label="Transmission sheets"
-          className="transmissions__stack">
+          label="Journal sheets"
+          className="journal__stack">
           <Sheet
             id="index"
             index={1}
             title={activeTag ? `Index · #${activeTag}` : 'Index'}
-            teaser="Every transmission, newest first"
+            teaser="Every entry, newest first"
             aside={<>{visible.length} plates</>}>
             {visible.length === 0 ? (
-              <p className="sheet-text">No transmissions on this frequency yet.</p>
+              <p className="sheet-text">No entries on this frequency yet.</p>
             ) : (
-              <div className="transmissions__grid">
+              <div className="journal__grid">
                 {visible.map((post) => (
                   <PlateCard
                     key={post.slug}
@@ -115,7 +115,7 @@ export const TransmissionsPage = () => {
             {activeTag && (
               <button
                 type="button"
-                className="transmissions__clear"
+                className="journal__clear"
                 onClick={() => setActiveTag(null)}>
                 Clear #{activeTag} filter
               </button>
@@ -139,7 +139,7 @@ export const TransmissionsPage = () => {
             title="Archive"
             teaser="Chronological log"
             treatment="ink">
-            <ol className="transmissions__log">
+            <ol className="journal__log">
               {posts.map((post) => (
                 <li key={post.slug}>
                   <time dateTime={post.date}>{formatPostDate(post.date)}</time>

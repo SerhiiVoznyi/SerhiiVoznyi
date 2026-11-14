@@ -31,7 +31,7 @@ export const ArticlePage = () => {
       kind="split"
       className="article"
       overlay={<BackToMap className="spread-back" />}>
-      <SheetStackProvider initialOrder={['transmission', 'metadata', 'related']}>
+      <SheetStackProvider initialOrder={['entry', 'metadata', 'related']}>
         <Plate
           src={post.cover ?? '/assets/art/city-plate-night.webp'}
           depth={2}
@@ -43,7 +43,7 @@ export const ArticlePage = () => {
           className="article__title layer"
           style={{ '--layer-depth': 1 } as CSSVars}>
           <p className="spread-kicker">
-            Transmission // <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+            Journal entry // <time dateTime={post.date}>{formatPostDate(post.date)}</time>
           </p>
           <DisplayTitle
             lines={[post.title]}
@@ -55,9 +55,9 @@ export const ArticlePage = () => {
           label="Article sheets"
           region="left">
           <Sheet
-            id="transmission"
+            id="entry"
             index={1}
-            title="Transmission"
+            title="Entry"
             teaser={post.summary}
             aside={<>{post.readingMinutes} min read</>}>
             <p className="sheet-text sheet-text--lead">{post.summary}</p>
@@ -109,11 +109,11 @@ export const ArticlePage = () => {
             id="related"
             index={3}
             title="Related"
-            teaser="More transmissions"
+            teaser="More journal entries"
             treatment="yellow"
             edge="notched">
             {related.length === 0 ? (
-              <p className="sheet-text">No related transmissions yet.</p>
+              <p className="sheet-text">No related entries yet.</p>
             ) : (
               <div className="article__related">
                 {related.map((item) => (

@@ -1,4 +1,4 @@
-import './identity.sass'
+import './profile.sass'
 
 import {
   BackToMap,
@@ -17,47 +17,47 @@ import {
   SheetStackProvider,
 } from '@/lib/sheet-stack'
 
-export const IdentityPage = () => (
+export const ProfilePage = () => (
   <SheetScene
     kind="art"
-    className="identity"
+    className="profile"
     overlay={<BackToMap className="spread-back" />}>
-    <SheetStackProvider initialOrder={['profile', 'role', 'channels']}>
+    <SheetStackProvider initialOrder={['summary', 'role', 'channels']}>
       <Plate
         src="/assets/art/city-plate-street.webp"
         depth={3}
         tone="dim"
       />
       <Plate
-        src="/assets/art/identity-figure.webp"
+        src="/assets/art/profile-figure.webp"
         depth={1}
         region="figure"
         glitch
         caption={`Subject // ${PROFILE.name}`}
-        className="identity__figure"
+        className="profile__figure"
       />
       <Decal
         src="/assets/art/decal-serpent.webp"
-        className="identity__decal"
+        className="profile__decal"
         rotate={14}
       />
       <div
-        className="identity__title layer"
+        className="profile__title layer"
         style={{ '--layer-depth': 1 } as CSSVars}>
         <p className="spread-kicker">Subject file // {PROFILE.handle}</p>
         <DisplayTitle
-          lines={['Identity']}
+          lines={['Profile']}
           size="lg"
           spreadHeading
         />
       </div>
       <SheetStack
-        label="Identity sheets"
-        className="identity__stack">
+        label="Profile sheets"
+        className="profile__stack">
         <Sheet
-          id="profile"
+          id="summary"
           index={1}
-          title="Profile"
+          title="Summary"
           teaser={PROFILE.role}
           edge="torn">
           <HalftoneOverlay />

@@ -34,18 +34,26 @@
 
 .top-bar__wordmark
     flex-shrink: 0
-    font-family: var(--app-font-display)
-    font-size: 1.35rem
-    font-style: italic
-    font-weight: 700
-    line-height: 1
-    letter-spacing: 0.02em
-    text-transform: uppercase
-    color: var(--app-color-yellow)
-    transform: skewX(-8deg)
+    display: block
+    transition: filter 140ms ease
 
-    &:hover
-        @include rgb-split(2px)
+    // The xl clamp resolves against the viewport here (the top bar is not a size container),
+    // so the lettering is rescaled to fit the chrome row.
+    .display-title
+        display: block
+        font-size: clamp(1.05rem, 2.2vh, 1.6rem)
+
+    // Stencilled glyphs are background-clipped, so the split uses drop-shadows instead of text-shadow.
+    &:hover,
+    &:focus-visible
+        filter: drop-shadow(-2px 0 var(--app-color-red)) drop-shadow(2px 0 var(--app-color-cyan))
+
+    body[data-fx='reduced'] &
+        transition: none
+
+        &:hover,
+        &:focus-visible
+            filter: none
 
 .top-bar__chip
     display: flex
@@ -277,7 +285,7 @@
     .top-bar
         gap: 0.6rem
 
-    .top-bar__wordmark
+    .top-bar__wordmark .display-title
         font-size: 1.05rem
 
     .top-bar__handle,

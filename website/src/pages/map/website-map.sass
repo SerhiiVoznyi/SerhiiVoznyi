@@ -1,0 +1,167 @@
+.website-map
+    position: absolute
+    inset: 0
+    display: block
+    width: 100%
+    height: 100%
+    pointer-events: none
+
+.website-map__stop-void
+    stop-color: var(--app-color-void)
+
+.website-map__stop-cyan
+    stop-color: var(--app-color-cyan)
+
+.website-map__stop-warm
+    stop-color: var(--app-color-map-light)
+
+.website-map__stop-tissue
+    stop-color: var(--app-color-map-tissue)
+
+.website-map__stop-tissue-lit
+    stop-color: var(--app-color-map-tissue-lit)
+
+.website-map__void
+    fill: var(--app-color-map-void)
+
+.website-map__mesh
+    fill: none
+    stroke: var(--app-color-map-grid)
+    stroke-width: 0.6
+
+.website-map__wave
+    fill: none
+    stroke: var(--app-color-map-wave)
+    stroke-width: 0.8
+
+// Neural net beyond the occipital pole
+.website-map__axon
+    fill: none
+    stroke: var(--app-color-cyan)
+    stroke-opacity: 0.16
+    stroke-width: 0.7
+
+.website-map__soma
+    fill: none
+    stroke: var(--app-color-cyan)
+    stroke-opacity: 0.6
+    stroke-width: 3.2
+    stroke-linecap: round
+
+// Height map for the relief filter: white tissue is high, black grooves are low.
+.website-map__height
+    fill: #fff
+
+.website-map__height-groove
+    fill: none
+    stroke: #000
+    stroke-width: 3.2
+    stroke-linecap: round
+    stroke-linejoin: round
+
+    &--major
+        stroke-width: 5
+
+    &--folia
+        stroke-width: 2.2
+
+// Lobe hues tint the lit relief without flattening its shading; the blur feathers their borders.
+.website-map__lobes
+    mix-blend-mode: color
+
+.website-map__lobe
+    fill-opacity: 0.2
+
+    &--frontal
+        fill: var(--app-color-cyan)
+
+    &--parietal
+        fill: var(--app-color-map-violet)
+
+    &--occipital
+        fill: var(--app-color-yellow)
+        fill-opacity: 0.08
+
+    &--temporal
+        fill: var(--app-color-map-teal)
+
+// A faint holographic trace down each sulcus keeps the cyber read on top of the relief.
+.website-map__fold
+    fill: none
+    stroke: var(--app-color-map-fold)
+    stroke-opacity: 0.35
+    stroke-width: 0.6
+    stroke-linecap: round
+    stroke-linejoin: round
+
+// The memory zones under the chapter pins glow like active engrams.
+.website-map__engram
+    opacity: 0.2
+
+.website-map__sulcus
+    fill: none
+    stroke: var(--app-color-cyan)
+    stroke-opacity: 0.55
+    stroke-width: 1
+    stroke-linecap: round
+
+.website-map__outline-glow
+    fill: none
+    stroke: var(--app-color-cyan)
+    stroke-opacity: 0.18
+    stroke-width: 6
+
+.website-map__outline
+    fill: none
+    stroke: var(--app-color-cyan)
+    stroke-opacity: 0.85
+    stroke-width: 1.1
+
+.website-map__neurons
+    fill: none
+    stroke-linecap: round
+    stroke-width: 2
+
+    &--warm
+        stroke: var(--app-color-map-light)
+        stroke-opacity: 0.9
+
+    &--cool
+        stroke: var(--app-color-cyan)
+        stroke-opacity: 0.75
+
+.website-map__zone
+    font-family: var(--app-font-display)
+    font-size: 10px
+    font-weight: 700
+    letter-spacing: 0.3em
+    text-transform: uppercase
+    fill: var(--app-text-color-main)
+    fill-opacity: 0.85
+    stroke: var(--app-color-map-tissue)
+    stroke-width: 3
+    paint-order: stroke
+
+.website-map__region
+    font-family: var(--app-font-mono)
+    font-size: 5.5px
+    letter-spacing: 0.14em
+    text-transform: uppercase
+    fill: var(--app-text-color-muted)
+    stroke: var(--app-color-map-tissue)
+    stroke-width: 2
+    paint-order: stroke
+
+.website-map__scan
+    animation: website-map-scan 11s linear infinite
+
+    body[data-fx='reduced'] &
+        display: none
+
+@keyframes website-map-scan
+    to
+        transform: translateX(1460px)
+
+@media (prefers-reduced-motion: reduce)
+    .website-map__scan
+        display: none

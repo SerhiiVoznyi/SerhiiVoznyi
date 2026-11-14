@@ -1,7 +1,7 @@
-.identity
+.profile
     --single-stack-top: 24%
 
-    .identity__figure
+    .profile__figure
         inset: 4% auto 4% 4%
         border: 2px solid var(--app-color-ink)
         box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.6)
@@ -10,24 +10,24 @@
             top: auto
             bottom: 5%
 
-    .identity__decal
+    .profile__decal
         bottom: 8%
         left: 27%
 
-    .identity__title
+    .profile__title
         top: 9%
         left: 38%
         display: flex
         flex-direction: column
         gap: 0.5rem
 
-    .identity__stack
+    .profile__stack
         inset: 36% 4% 7% 38%
 
     &[data-view='single']
-        .identity__title
+        .profile__title
             top: 8%
             left: 5%
 
-        .identity__stack
+        .profile__stack
             inset: var(--single-stack-top) 4% 4% 4%

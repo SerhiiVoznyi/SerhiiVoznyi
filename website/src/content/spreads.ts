@@ -6,18 +6,21 @@ export type SpreadMeta = {
   id: string
   path: string
   label: string
-  district: string
+  chapter: string
   kind: SpreadKind
   teaser: string
+  /** Filing date, for spreads that are journal entries. */
+  date?: string
 }
 
 const postSpreads: SpreadMeta[] = getPosts().map((post) => ({
   id: `post:${post.slug}`,
   path: `/blog/${post.slug}`,
   label: post.title,
-  district: 'Transmissions',
+  chapter: 'Journal',
   kind: 'split',
   teaser: post.summary,
+  date: post.date,
 }))
 
 export const SPREADS: readonly SpreadMeta[] = [
@@ -25,47 +28,47 @@ export const SPREADS: readonly SpreadMeta[] = [
     id: 'map',
     path: '/',
     label: 'Map',
-    district: 'Hub',
+    chapter: 'Map',
     kind: 'map',
-    teaser: 'Every district of the file, one jump away.',
+    teaser: 'Every chapter of the file, one jump away.',
   },
   {
-    id: 'identity',
-    path: '/identity',
-    label: 'Identity',
-    district: 'Identity',
+    id: 'profile',
+    path: '/profile',
+    label: 'Profile',
+    chapter: 'Profile',
     kind: 'art',
     teaser: 'Who is behind the visor.',
   },
   {
-    id: 'dossier',
-    path: '/dossier',
-    label: 'Dossier',
-    district: 'Dossier',
+    id: 'experience',
+    path: '/experience',
+    label: 'Experience',
+    chapter: 'Experience',
     kind: 'split',
     teaser: 'What I build, and the stack I build it with.',
   },
   {
-    id: 'transmissions',
+    id: 'journal',
     path: '/blog',
-    label: 'Transmissions',
-    district: 'Transmissions',
+    label: 'Journal',
+    chapter: 'Journal',
     kind: 'paper',
     teaser: 'Field notes on architecture, cloud and leadership.',
   },
   ...postSpreads,
   {
-    id: 'uplink',
-    path: '/uplink',
-    label: 'Uplink',
-    district: 'Uplink',
+    id: 'contact',
+    path: '/contact',
+    label: 'Contact',
+    chapter: 'Contact',
     kind: 'split',
     teaser: 'Open a channel.',
   },
 ]
 
-export const DISTRICTS = SPREADS.filter((spread) =>
-  ['identity', 'dossier', 'transmissions', 'uplink'].includes(spread.id),
+export const CHAPTERS = SPREADS.filter((spread) =>
+  ['profile', 'experience', 'journal', 'contact'].includes(spread.id),
 )
 
 const normalize = (pathname: string) =>

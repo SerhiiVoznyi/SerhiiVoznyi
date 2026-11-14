@@ -19,7 +19,7 @@ Stack: Vite, React 19, TypeScript, Mantine, React Router, indented Sass, and `ma
 - **Spread transition** (`src/lib/spread-transition/`) — holds the rendered route back while the current spread turns away in 3D, then lets the next one settle in. Direction follows the spread registry, so paging back turns the other way.
 - **Sheet stack** (`src/lib/sheet-stack/`) — `SheetScene` is the perspective and parallax root, `SheetStack` the positioned region, `Sheet` a promotable page and `Plate` a fixed art layer. All geometry is derived in CSS from a single `--layer-depth` value per layer.
 - **Spread registry** (`src/content/spreads.ts`) — the ordered list of spreads behind the counter, prev/next, the map and turn direction. Each blog post is added as its own spread automatically.
-- **Pages** (`src/pages/`) — Map (`/`), Identity, Dossier, Transmissions (`/blog`), Article (`/blog/:slug`), Uplink, and the Signal Lost 404.
+- **Pages** (`src/pages/`) — Map (`/`), Profile, Experience, Journal (`/blog`), Article (`/blog/:slug`), Contact, and the Signal Lost 404.
 
 Keyboard: arrow keys page between spreads, `M` mutes, `+` / `-` zoom, `Escape` resets zoom or returns to the map.
 
@@ -45,7 +45,7 @@ Body in GitHub-flavoured markdown. Start sections at `##`.
 
 ## Artwork and audio
 
-- Art plates, textures and the decal live in `public/assets/art/`. The hero figure is a placeholder illustration; swap `identity-figure.webp` for a real portrait whenever you like.
+- Art plates, textures and the decal live in `public/assets/art/`. The hero figure is a placeholder illustration; swap `profile-figure.webp` for a real portrait whenever you like.
 - The soundtrack playlist is defined in `src/content/soundtrack.ts` and plays files from `public/assets/audio/`. It starts muted and paused; tracks whose files are missing are detected and skipped.
 - Self-hosted fonts: Chakra Petch (display), Share Tech Mono (HUD), Source Sans 3 (body) and Line Awesome icons, under `public/assets/fonts/`.
 

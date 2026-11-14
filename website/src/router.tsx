@@ -2,13 +2,20 @@ import { type Location, Navigate, Route, Routes } from 'react-router-dom'
 
 import {
   ArticlePage,
-  DossierPage,
-  IdentityPage,
+  ContactPage,
+  ExperiencePage,
+  JournalPage,
   MapPage,
+  ProfilePage,
   SignalLostPage,
-  TransmissionsPage,
-  UplinkPage,
 } from './pages'
+
+const REDIRECTS: Record<string, string> = {
+  '/home': '/',
+  '/identity': '/profile',
+  '/dossier': '/experience',
+  '/uplink': '/contact',
+}
 
 export const AppRouter = ({ location }: { location: Location }) => (
   <Routes location={location}>
@@ -17,34 +24,37 @@ export const AppRouter = ({ location }: { location: Location }) => (
       element={<MapPage />}
     />
     <Route
-      path="/identity"
-      element={<IdentityPage />}
+      path="/profile"
+      element={<ProfilePage />}
     />
     <Route
-      path="/dossier"
-      element={<DossierPage />}
+      path="/experience"
+      element={<ExperiencePage />}
     />
     <Route
       path="/blog"
-      element={<TransmissionsPage />}
+      element={<JournalPage />}
     />
     <Route
       path="/blog/:slug"
       element={<ArticlePage />}
     />
     <Route
-      path="/uplink"
-      element={<UplinkPage />}
+      path="/contact"
+      element={<ContactPage />}
     />
-    <Route
-      path="/home"
-      element={
-        <Navigate
-          to="/"
-          replace
-        />
-      }
-    />
+    {Object.entries(REDIRECTS).map(([from, to]) => (
+      <Route
+        key={from}
+        path={from}
+        element={
+          <Navigate
+            to={to}
+            replace
+          />
+        }
+      />
+    ))}
     <Route
       path="*"
       element={<SignalLostPage />}

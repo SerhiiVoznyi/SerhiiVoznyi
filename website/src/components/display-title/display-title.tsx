@@ -4,7 +4,8 @@ import { cx } from '@/lib/cx'
 
 type DisplayTitleProps = {
   lines: readonly string[]
-  level?: 1 | 2
+  /** `'none'` renders the lettering without heading semantics, for chrome such as the wordmark. */
+  level?: 1 | 2 | 'none'
   size?: 'xl' | 'lg' | 'md'
   tone?: 'yellow' | 'ink' | 'red'
   /** Marks the heading that receives focus after a page turn. */
@@ -20,7 +21,7 @@ export const DisplayTitle = ({
   spreadHeading = false,
   className,
 }: DisplayTitleProps) => {
-  const Tag = level === 1 ? 'h1' : 'h2'
+  const Tag = level === 'none' ? 'span' : level === 1 ? 'h1' : 'h2'
 
   return (
     <Tag

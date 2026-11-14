@@ -1,4 +1,4 @@
-import './dossier.sass'
+import './experience.sass'
 
 import { BackToMap, Decal, DisplayTitle, HazardRule, TagChip } from '@/components'
 import { PROFILE } from '@/content/profile'
@@ -11,10 +11,10 @@ import {
   SheetStackProvider,
 } from '@/lib/sheet-stack'
 
-export const DossierPage = () => (
+export const ExperiencePage = () => (
   <SheetScene
     kind="split"
-    className="dossier"
+    className="experience"
     overlay={<BackToMap className="spread-back" />}>
     <SheetStackProvider initialOrder={['about', 'focus', 'stack']}>
       <Plate
@@ -27,20 +27,20 @@ export const DossierPage = () => (
       />
       <Decal
         src="/assets/art/decal-serpent.webp"
-        className="dossier__decal"
+        className="experience__decal"
       />
       <div
-        className="dossier__title layer"
+        className="experience__title layer"
         style={{ '--layer-depth': 1 } as CSSVars}>
-        <p className="spread-kicker">Dossier // {PROFILE.experience} in the field</p>
+        <p className="spread-kicker">Experience // {PROFILE.experience} in the field</p>
         <DisplayTitle
-          lines={['Dossier']}
+          lines={['Experience']}
           size="lg"
           spreadHeading
         />
       </div>
       <SheetStack
-        label="Dossier sheets"
+        label="Experience sheets"
         region="left">
         <Sheet
           id="about"
@@ -71,7 +71,7 @@ export const DossierPage = () => (
           edge="notched">
           <HazardRule
             tone="ink"
-            className="dossier__rule"
+            className="experience__rule"
           />
           <ul className="chip-row">
             {PROFILE.stack.map((item) => (
