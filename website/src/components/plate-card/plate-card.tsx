@@ -2,36 +2,33 @@ import './plate-card.sass'
 
 import { Link } from 'react-router-dom'
 
+import { entryPath } from '@/content/spreads'
 import { type CSSVars, cx } from '@/lib/cx'
-import { formatPostDate, type Post } from '@/services'
+import { formatPostDate, type PostSummary, prefetchPost } from '@/services'
 
 type PlateCardProps = {
-  post: Post
-  plate: number
+  post: PostSummary
   compact?: boolean
   className?: string
 }
 
-export const PlateCard = ({
-  post,
-  plate,
-  compact = false,
-  className,
-}: PlateCardProps) => (
+export const PlateCard = ({ post, compact = false, className }: PlateCardProps) => (
   <article
     className={cx('plate-card', compact && 'plate-card--compact', className)}
     style={{ '--plate-src': post.cover ? `url('${post.cover}')` : 'none' } as CSSVars}>
     <Link
-      to={`/blog/${post.slug}`}
-      className="plate-card__link">
-      {!compact && (
+      to={entryPath(post.slug)}
+      className="plate-card__link"
+      onPointerEnter={() => prefetchPost(post.slug)}
+      onFocus={() => prefetchPost(post.slug)}>
+      {!compact && post.cover && (
         <span
           className="plate-card__art"
           aria-hidden="true"
         />
       )}
       <span className="plate-card__meta">
-        <span>PLATE {String(plate).padStart(2, '0')}</span>
+        <span>PLATE {String(post.position).padStart(2, '0')}</span>
         <time dateTime={post.date}>{formatPostDate(post.date)}</time>
         <span>{post.readingMinutes} MIN</span>
       </span>
@@ -46,4 +43,17 @@ export const PlateCard = ({
       )}
     </Link>
   </article>
+)
+
+/** Placeholder with the card's footprint while a page of entries loads. */
+export const PlateCardSkeleton = ({ compact = false }: { compact?: boolean }) => (
+  <div
+    className={cx('plate-card', 'plate-card--skeleton', compact && 'plate-card--compact')}
+    aria-hidden="true">
+    <span className="plate-card__meta">
+      <span>PLATE --</span>
+    </span>
+    <span className="plate-card__bar" />
+    <span className="plate-card__bar plate-card__bar--short" />
+  </div>
 )

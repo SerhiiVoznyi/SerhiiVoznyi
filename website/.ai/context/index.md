@@ -28,11 +28,12 @@ Serhii Voznyi's personal brand site and blog, built as an interactive **artbook 
 | `src/lib/spread-transition/`   | Page-turn phase machine (`exiting` → `entering` → `idle`)                                             |
 | `src/lib/reader/`              | Reader state: view mode, zoom, effects preference, spread navigation                                  |
 | `src/lib/audio/`               | Soundtrack player context                                                                             |
-| `src/content/spreads.ts`       | Spread registry — drives the counter, prev/next, map route and turn direction                         |
+| `src/content/spreads.ts`       | Chapter registry and entry routing — drives the counter, prev/next, map route and turn direction      |
 | `src/content/profile.ts`       | All profile copy and links                                                                            |
 | `src/content/posts/*.md`       | Blog posts (frontmatter + markdown)                                                                   |
 | `src/content/soundtrack.ts`    | Playlist                                                                                              |
-| `src/services/posts/`          | Post loading, frontmatter parsing, markdown rendering                                                 |
+| `src/services/posts/`          | Async cached journal API, shared types, search tokenizer; frontmatter and markdown (build-time only)  |
+| `plugins/journal.ts`           | Vite plugin: compiles posts into the manifest module and paged `/journal/*.json` (dev middleware too) |
 | `src/pages/<spread>/`          | One folder per spread: `map`, `profile`, `experience`, `journal`, `article`, `contact`, `signal-lost` |
 | `src/styles/`                  | `variables.sass` tokens, `_mixins.sass`, `base.sass`, `content.sass`                                  |
 | `public/assets/art/`           | WebP art plates, textures, decal, OG image                                                            |

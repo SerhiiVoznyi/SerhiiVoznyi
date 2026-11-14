@@ -2,29 +2,64 @@ import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useLocalStorage } from '@mantine/hooks'
 
-import { findSpreadIndex, SPREADS } from '@/content/spreads'
+import { entrySlugOf, findSpreadIndex, SPREADS } from '@/content/spreads'
 
-const useVisitedStore = () =>
-  useLocalStorage<string[]>({
-    key: 'sv:visited',
-    defaultValue: [],
+/** Entry slugs remembered individually; older ones only survive in the running count. */
+const ENTRY_MEMORY = 500
+
+type VisitLog = { spreads: string[]; entries: string[]; entryCount: number }
+
+const EMPTY: VisitLog = { spreads: [], entries: [], entryCount: 0 }
+
+const useVisitStore = () =>
+  useLocalStorage<VisitLog>({
+    key: 'sv:visits',
+    defaultValue: EMPTY,
     getInitialValueInEffect: false,
   })
 
-/** Ids of every spread this reader has opened, kept across visits. */
-export const useVisitedSpreads = () => {
-  const [visited] = useVisitedStore()
-  return useMemo(() => new Set(visited), [visited])
+export const entryVisitId = (slug: string) => `post:${slug}`
+
+/**
+ * What this reader has opened, kept across visits: chapter ids and `post:<slug>` ids for the
+ * most recent entries, plus how many distinct entries have been read.
+ */
+export const useVisits = () => {
+  const [log] = useVisitStore()
+  return useMemo(
+    () => ({
+      visited: new Set([...log.spreads, ...log.entries.map(entryVisitId)]),
+      entryCount: log.entryCount,
+    }),
+    [log],
+  )
 }
 
-/** Marks the spread at the current URL as visited. */
+/** Marks the spread or entry at the current URL as visited. */
 export const useRecordVisit = () => {
   const { pathname } = useLocation()
-  const [, setVisited] = useVisitedStore()
+  const [, setLog] = useVisitStore()
 
   useEffect(() => {
+    const slug = entrySlugOf(pathname)
+    if (slug !== null) {
+      setLog((log) =>
+        log.entries.includes(slug)
+          ? log
+          : {
+              ...log,
+              entries: [slug, ...log.entries].slice(0, ENTRY_MEMORY),
+              entryCount: log.entryCount + 1,
+            },
+      )
+      return
+    }
     const spread = SPREADS[findSpreadIndex(pathname)]
     if (!spread) return
-    setVisited((ids) => (ids.includes(spread.id) ? ids : [...ids, spread.id]))
-  }, [pathname, setVisited])
+    setLog((log) =>
+      log.spreads.includes(spread.id)
+        ? log
+        : { ...log, spreads: [...log.spreads, spread.id] },
+    )
+  }, [pathname, setLog])
 }

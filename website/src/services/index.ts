@@ -1,2 +1,8 @@
 export * from './posts/posts.service'
-export type { Post } from './posts/posts.types'
+export type {
+  JournalManifest,
+  MonthEntry,
+  PostDetail,
+  PostSummary,
+  TagEntry,
+} from './posts/posts.types'

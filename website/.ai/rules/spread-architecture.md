@@ -4,7 +4,7 @@ Invariants of the reader, the sheet stack and the page turn. Breaking one of the
 
 ## Registry and routing
 
-- Every navigable spread has an entry in `SPREADS` in `src/content/spreads.ts`; that order defines the counter, prev/next, arrow keys, turn direction and the website map route. Posts are appended automatically from the posts service.
+- Every navigable spread has an entry in `SPREADS` in `src/content/spreads.ts`; that order defines the counter, prev/next, arrow keys, turn direction and the website map route. `SPREADS` holds the chapters only; journal entries (`/blog/:slug`) belong to the Journal spread and are read between it and the next chapter, newest first, using each entry's `newer`/`older` neighbours (`spreadOrder` gives the turn direction). Never put entries in `SPREADS`: there may be 100k of them.
 - The website map is exact: `MAP_ROUTE` is derived from `SPREADS`, one stop per spread. Connections appear only on hover or focus, between a stop and its reading-order neighbours. Never draw decorative stops or lines that are not pages.
 - Routes live in `src/router.tsx` and render with the `location` passed in by `SpreadTransition`, never the live router location, so the outgoing spread can finish turning.
 - Each route element is remounted per pathname by the transition; do not rely on page state surviving navigation.

@@ -1,5 +1,16 @@
-import { type SpreadMeta, SPREADS } from '@/content/spreads'
-import { formatPostDate } from '@/services'
+import {
+  entryPath,
+  formatSpreadNumber,
+  type SpreadMeta,
+  SPREADS,
+} from '@/content/spreads'
+import {
+  formatCompactCount,
+  formatCount,
+  formatPostDate,
+  getJournalManifest,
+  type PostSummary,
+} from '@/services'
 
 import { seeded } from './seeded'
 
@@ -13,15 +24,16 @@ type Point = readonly [number, number]
 
 export type MapStop = {
   id: string
-  /** Position in `SPREADS`, so keyboard order is the reading order. */
-  index: number
+  kind: 'root' | 'chapter' | 'entry' | 'archive'
+  /** Shown in the tip: the spread number for chapters, the filing position for entries. */
+  number: string
   spread: SpreadMeta
   x: number
   y: number
   /** 0 is the Map itself, 1 the chapters, 2 the entries filed under the Journal. */
   tier: 0 | 1 | 2
   parent: string | null
-  icon: string
+  icon: PerkIcon
   code: string
   /** Which way the tooltip opens, so it stays on the open board. */
   side: 'left' | 'right'
@@ -34,99 +46,164 @@ export type MapSocket = { id: string; x: number; y: number; parent: string; code
 export type MapTrace = {
   from: string
   to: string
-  d: string
+  /** Parallel hairlines of one bundle; the middle strand carries the flow animation. */
+  strands: string[]
   /** Decorative traces never light up; only spread-to-spread wiring does. */
   live: boolean
 }
 
 const ROOT: Point = [96, 252]
 const CHAPTER_X = 276
-const ENTRY_X = 470
-const ENTRY_COLUMN_STEP = 160
+const ENTRY_X = 472
 const ROW_STEP = 104
 const ROW_MIN = 96
 const ROW_MAX = 408
-const ENTRIES_PER_COLUMN = 4
+/** The map shows the newest few entries; the Archive perk opens the whole journal. */
+const LATEST_ON_MAP = 3
 
-const CHAPTERS: Record<string, { row: number; icon: string; place: string }> = {
-  profile: { row: 96, icon: 'la-user-astronaut', place: 'Identity core' },
-  experience: { row: 200, icon: 'la-microchip', place: 'Combat record' },
-  journal: { row: 304, icon: 'la-book-open', place: 'Memory shards' },
-  contact: { row: 408, icon: 'la-satellite-dish', place: 'Open channel' },
+export type PerkIcon =
+  | 'map'
+  | 'profile'
+  | 'experience'
+  | 'journal'
+  | 'contact'
+  | 'entry'
+  | 'archive'
+  | 'locked'
+
+/** Perk art is white line work on black, used as a luminance mask so each state tints it. */
+export const perkIconUrl = (icon: PerkIcon) =>
+  `url('/assets/art/perks/perk-${icon}.webp')`
+
+const CHAPTERS: Record<string, { row: number; icon: PerkIcon; place: string }> = {
+  profile: { row: 96, icon: 'profile', place: 'Identity core' },
+  experience: { row: 200, icon: 'experience', place: 'Combat record' },
+  journal: { row: 304, icon: 'journal', place: 'Memory shards' },
+  contact: { row: 408, icon: 'contact', place: 'Open channel' },
 }
+
+/** Tile centres sit on a 4-unit grid so bundles meet the connector pins squarely. */
+const snap = (value: number) => Math.round(value / 4) * 4
 
 const codeOf = (index: number) => `PRK_${String(index + 1).padStart(4, '0')}`
 
 // A column of entries centres on the Journal row, then slides to stay inside the board.
 const entryRows = (count: number) => {
   const centre = CHAPTERS.journal.row
+  if (count === 0) return []
   const rows = Array.from(
     { length: count },
     (_, index) => centre + (index - (count - 1) / 2) * ROW_STEP,
   )
   const shift =
     Math.min(0, ROW_MAX - Math.max(...rows)) || Math.max(0, ROW_MIN - Math.min(...rows))
-  return rows.map((row) => Math.round(row + shift))
+  return rows.map((row) => snap(row + shift))
 }
 
-const buildRoute = (spreads: readonly SpreadMeta[]): MapStop[] => {
-  const entries = spreads.filter((spread) => spread.path.startsWith('/blog/'))
+const entrySpread = (post: PostSummary): SpreadMeta => ({
+  id: `post:${post.slug}`,
+  path: entryPath(post.slug),
+  label: post.title,
+  chapter: 'Journal',
+  kind: 'split',
+  teaser: post.summary,
+  date: post.date,
+})
 
-  return spreads.map((spread, index): MapStop => {
-    const base = { id: spread.id, index, spread, code: codeOf(index) }
+const buildRoute = (): MapStop[] => {
+  const { latest, total } = getJournalManifest()
+  const shown = latest.slice(0, LATEST_ON_MAP)
+  const rows = entryRows(shown.length + (total > 0 ? 1 : 0))
+  const stops: MapStop[] = []
 
+  // Keyboard order is reading order: chapters, with the Journal's entries right after it.
+  SPREADS.forEach((spread, index) => {
+    const number = formatSpreadNumber(index)
     if (spread.path === '/') {
-      return {
-        ...base,
+      stops.push({
+        id: spread.id,
+        kind: 'root',
+        number,
+        spread,
         x: ROOT[0],
         y: ROOT[1],
         tier: 0,
         parent: null,
-        icon: 'la-map-marked-alt',
+        icon: 'map',
+        code: '',
         side: 'right',
         place: 'You are here',
-      }
+      })
+      return
     }
 
     const chapter = CHAPTERS[spread.id]
-    if (chapter) {
-      return {
-        ...base,
-        x: CHAPTER_X,
-        y: chapter.row,
-        tier: 1,
-        parent: 'map',
-        icon: chapter.icon,
-        side: 'right',
-        place: chapter.place,
-      }
-    }
+    if (!chapter) return
+    stops.push({
+      id: spread.id,
+      kind: 'chapter',
+      number,
+      spread,
+      x: CHAPTER_X,
+      y: chapter.row,
+      tier: 1,
+      parent: 'map',
+      icon: chapter.icon,
+      code: '',
+      side: 'right',
+      place: chapter.place,
+    })
 
-    const position = entries.indexOf(spread)
-    const column = Math.floor(position / ENTRIES_PER_COLUMN)
-    const inColumn = Math.min(
-      ENTRIES_PER_COLUMN,
-      entries.length - column * ENTRIES_PER_COLUMN,
-    )
-    const x = ENTRY_X + column * ENTRY_COLUMN_STEP
-    return {
-      ...base,
-      x,
-      y: entryRows(inColumn)[position % ENTRIES_PER_COLUMN],
-      tier: 2,
-      parent: 'journal',
-      icon: 'la-file-alt',
-      side: x > 560 ? 'left' : 'right',
-      place: spread.date ? `Filed ${formatPostDate(spread.date)}` : spread.chapter,
+    if (spread.id !== 'journal') return
+    shown.forEach((post, row) => {
+      stops.push({
+        id: `post:${post.slug}`,
+        kind: 'entry',
+        number: `#${formatCount(post.position)}`,
+        spread: entrySpread(post),
+        x: ENTRY_X,
+        y: rows[row],
+        tier: 2,
+        parent: 'journal',
+        icon: 'entry',
+        code: '',
+        side: 'right',
+        place: `Filed ${formatPostDate(post.date)}`,
+      })
+    })
+    if (total > 0) {
+      stops.push({
+        id: 'archive',
+        kind: 'archive',
+        number: formatCompactCount(total),
+        spread: {
+          id: 'archive',
+          path: spread.path,
+          label: 'Archive',
+          chapter: 'Journal',
+          kind: 'paper',
+          teaser: `All ${formatCount(total)} entries: search, filter by tag, browse by month.`,
+        },
+        x: ENTRY_X,
+        y: rows[shown.length],
+        tier: 2,
+        parent: 'journal',
+        icon: 'archive',
+        code: '',
+        side: 'right',
+        place: `${formatCount(total)} entries filed`,
+      })
     }
   })
+
+  return stops.map((stop, index) => ({ ...stop, code: codeOf(index) }))
 }
 
-/** Every navigable spread, in reading order: the counter, prev/next and the map agree. */
-export const MAP_ROUTE: readonly MapStop[] = buildRoute(SPREADS)
+/** Every perk on the board, in reading order: the counter, prev/next and the map agree. */
+export const MAP_ROUTE: readonly MapStop[] = buildRoute()
 
 const SOCKET_CELLS: readonly Point[] = [
-  [470, 96],
+  [472, 96],
   [640, 148],
   [640, 356],
 ]
@@ -166,16 +243,25 @@ const CHAMFER = 10
 
 const round = (value: number) => Math.round(value * 10) / 10
 
+const STRAND_GAP = 3.5
+
 // Board wiring runs out of the right edge of a tile and into the left edge of the next: horizontal,
-// a 45-degree chamfer, vertical, another chamfer, horizontal again.
-const wire = (from: Point, to: Point, lane: number, spread: number) => {
-  const [sx, sy] = [from[0] + HALF + 4, from[1] + spread]
-  const [ex, ey] = [to[0] - HALF - 4, to[1]]
-  const dy = ey - sy
-  if (Math.abs(dy) < 1) return `M${sx} ${sy}H${ex}`
-  const mid = round((sx + ex) / 2 + lane)
-  const c = Math.min(CHAMFER, Math.abs(dy) / 2)
-  const s = Math.sign(dy)
+// a 45-degree chamfer, vertical, another chamfer, horizontal again. Strand `k` of a bundle shifts
+// every segment by the same gap toward the outside of each bend, so the strands stay parallel.
+const wire = (from: Point, to: Point, lane: number, spread: number, k: number) => {
+  const sx = from[0] + HALF + 6
+  const ex = to[0] - HALF - 6
+  const base = to[1] - (from[1] + spread)
+  if (Math.abs(base) < 1) {
+    const y = round(from[1] + spread - k * STRAND_GAP)
+    return `M${sx} ${y}H${ex}`
+  }
+  const s = Math.sign(base)
+  const shift = k * STRAND_GAP
+  const sy = round(from[1] + spread - s * shift)
+  const ey = round(to[1] - s * shift)
+  const mid = round((sx + ex) / 2 + lane + shift)
+  const c = Math.min(CHAMFER, Math.abs(ey - sy) / 2)
   return `M${sx} ${sy}H${mid - c}L${mid} ${sy + s * c}V${ey - s * c}L${mid + c} ${ey}H${ex}`
 }
 
@@ -197,9 +283,20 @@ const buildTraces = (): MapTrace[] => {
     const order = siblings.indexOf(edge) - (siblings.length - 1) / 2
     const from = nodes.get(edge.from)!
     const to = nodes.get(edge.to)!
+    const strands = edge.live ? [-1, 0, 1] : [-0.5, 0.5]
     return {
       ...edge,
-      d: wire([from.x, from.y], [to.x, to.y], order * 9, Math.round(order * 10)),
+      // The sibling that runs farthest from the parent's row turns first, so bundles nest
+      // instead of one bundle's run crossing another's drop.
+      strands: strands.map((k) =>
+        wire(
+          [from.x, from.y],
+          [to.x, to.y],
+          -Math.abs(order) * 14,
+          Math.round(order * 12),
+          k,
+        ),
+      ),
     }
   })
 }

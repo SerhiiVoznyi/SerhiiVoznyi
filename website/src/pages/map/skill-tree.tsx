@@ -3,10 +3,11 @@ import './skill-tree.sass'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { CHAPTERS, formatSpreadNumber } from '@/content/spreads'
+import { CHAPTERS } from '@/content/spreads'
 import { type CSSVars, cx } from '@/lib/cx'
-import { useVisitedSpreads } from '@/lib/reader'
+import { useVisits } from '@/lib/reader'
 import { useSheetStack } from '@/lib/sheet-stack'
+import { formatCompactCount, getJournalManifest, prefetchPost } from '@/services'
 
 import {
   BOARD_STUBS,
@@ -16,12 +17,16 @@ import {
   MAP_TRACES,
   MAP_WIDTH,
   type MapStop,
+  type PerkIcon,
+  perkIconUrl,
   toPercent,
 } from './map-nodes'
 
-// Entries are filed in the Journal, so aiming at one brings the Journal briefing forward.
+type Visits = ReturnType<typeof useVisits>
+
+// Entries and the archive are filed in the Journal, so aiming at one brings its briefing forward.
 const briefingFor = (stop: MapStop) => {
-  if (stop.spread.path.startsWith('/blog/')) return 'journal'
+  if (stop.kind === 'entry' || stop.kind === 'archive') return 'journal'
   return CHAPTERS.some((chapter) => chapter.id === stop.id) ? stop.id : null
 }
 
@@ -35,17 +40,36 @@ const neighbours = (id: string) => {
   ])
 }
 
-// A perk's level is how much of it the reader has opened: a chapter with entries counts them.
-const levelOf = (stop: MapStop, visited: ReadonlySet<string>) => {
-  const entries = childrenOf(stop.id)
-  if (entries.length > 0) {
+// A perk's level is how much of it the reader has opened: the Journal and its archive count every
+// entry read, the Map counts chapters, anything else is one visit.
+const levelOf = (stop: MapStop, { visited, entryCount }: Visits) => {
+  if (stop.id === 'journal' || stop.kind === 'archive') {
+    const { total } = getJournalManifest()
+    return { points: Math.min(entryCount, total), max: total }
+  }
+  const children = childrenOf(stop.id)
+  if (children.length > 0) {
     return {
-      points: entries.filter((entry) => visited.has(entry.id)).length,
-      max: entries.length,
+      points: children.filter((child) => visited.has(child.id)).length,
+      max: children.length,
     }
   }
   return { points: visited.has(stop.id) ? 1 : 0, max: 1 }
 }
+
+const TIP_KIND: Record<MapStop['kind'], string> = {
+  root: 'Root',
+  chapter: 'Chapter',
+  entry: 'Entry',
+  archive: 'Archive',
+}
+
+const PerkArt = ({ icon }: { icon: PerkIcon }) => (
+  <span
+    className="skill-tree__art"
+    style={{ '--perk-icon': perkIconUrl(icon) } as CSSVars}
+  />
+)
 
 const Circuit = ({
   aimed,
@@ -97,18 +121,16 @@ const Circuit = ({
             trace.live && visited.has(trace.to) && 'skill-tree__trace--powered',
             lit && 'skill-tree__trace--lit',
           )}>
-          <path
-            className="skill-tree__trace-bus"
-            d={trace.d}
-          />
-          <path
-            className="skill-tree__trace-gap"
-            d={trace.d}
-          />
-          <path
-            className="skill-tree__trace-core"
-            d={trace.d}
-          />
+          {trace.strands.map((d, index) => (
+            <path
+              key={index}
+              className={cx(
+                'skill-tree__strand',
+                index === (trace.strands.length - 1) / 2 && 'skill-tree__strand--core',
+              )}
+              d={d}
+            />
+          ))}
         </g>
       )
     })}
@@ -117,22 +139,23 @@ const Circuit = ({
 
 const Perk = ({
   stop,
-  visited,
+  visits,
   active,
   linked,
   onAim,
   onRelease,
 }: {
   stop: MapStop
-  visited: ReadonlySet<string>
+  visits: Visits
   active: boolean
   linked: boolean
   onAim: () => void
   onRelease: () => void
 }) => {
-  const level = levelOf(stop, visited)
-  const here = stop.spread.path === '/'
-  const unlocked = here || visited.has(stop.id)
+  const level = levelOf(stop, visits)
+  const here = stop.kind === 'root'
+  const unlocked =
+    here || visits.visited.has(stop.id) || (stop.kind === 'archive' && level.points > 0)
   const position = toPercent(stop)
 
   return (
@@ -140,7 +163,7 @@ const Perk = ({
       className={cx(
         'skill-tree__perk',
         `skill-tree__perk--tip-${stop.side}`,
-        stop.tier === 2 && 'skill-tree__perk--entry',
+        stop.kind === 'entry' && 'skill-tree__perk--entry',
         unlocked ? 'skill-tree__perk--unlocked' : 'skill-tree__perk--available',
         active && 'skill-tree__perk--active',
         linked && 'skill-tree__perk--linked',
@@ -164,26 +187,23 @@ const Perk = ({
               level.points === 0 && 'skill-tree__level--empty',
               level.points === level.max && 'skill-tree__level--full',
             )}>
-            {level.points}/{level.max}
+            {formatCompactCount(level.points)}/{formatCompactCount(level.max)}
           </span>
         </span>
         <span
           className="skill-tree__face"
           aria-hidden="true">
-          <i className={cx('las', stop.icon)} />
+          <PerkArt icon={stop.icon} />
         </span>
         <span className="skill-tree__name">{stop.spread.label}</span>
         <span className="skill-tree__tip">
           <span
             className="skill-tree__tip-head"
             aria-hidden="true">
-            <span className="skill-tree__tip-index">
-              {formatSpreadNumber(stop.index)}
-            </span>
-            {stop.tier === 2 ? 'Entry' : stop.tier === 0 ? 'Root' : 'Chapter'} //{' '}
-            {stop.code}
+            <span className="skill-tree__tip-index">{stop.number}</span>
+            {`${TIP_KIND[stop.kind]} // ${stop.code}`}
           </span>
-          {stop.tier === 2 && (
+          {stop.kind === 'entry' && (
             <span
               className="skill-tree__tip-title"
               aria-hidden="true">
@@ -205,12 +225,13 @@ const Perk = ({
 /** The website map drawn as a perk tree: every spread is a perk, wired to the one it opens from. */
 export const SkillTree = () => {
   const { order, promote } = useSheetStack()
-  const visited = useVisitedSpreads()
+  const visits = useVisits()
   const [aimed, setAimed] = useState<string | null>(null)
   const linked = aimed ? neighbours(aimed) : new Set<string>()
 
   const aim = (stop: MapStop) => {
     setAimed(stop.id)
+    if (stop.kind === 'entry') prefetchPost(stop.id.slice('post:'.length))
     const briefing = briefingFor(stop)
     if (briefing) promote(briefing)
   }
@@ -222,7 +243,7 @@ export const SkillTree = () => {
       aria-label="Website map">
       <Circuit
         aimed={aimed}
-        visited={visited}
+        visited={visits.visited}
       />
       <div
         className="skill-tree__sockets"
@@ -240,7 +261,7 @@ export const SkillTree = () => {
                   <span className="skill-tree__level skill-tree__level--empty">0/1</span>
                 </span>
                 <span className="skill-tree__face">
-                  <i className="las la-lock" />
+                  <PerkArt icon="locked" />
                 </span>
               </span>
             </span>
@@ -252,7 +273,7 @@ export const SkillTree = () => {
           <Perk
             key={stop.id}
             stop={stop}
-            visited={visited}
+            visits={visits}
             active={order[0] === stop.id}
             linked={linked.has(stop.id)}
             onAim={() => aim(stop)}

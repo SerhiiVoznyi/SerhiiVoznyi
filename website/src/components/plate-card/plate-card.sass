@@ -67,6 +67,40 @@
     @include hud-label
     font-size: var(--app-text-small)
 
+.plate-card--skeleton
+    display: flex
+    flex-direction: column
+    gap: 0.6rem
+    min-height: 9rem
+    padding: 0.6rem 0.6rem 0.85rem
+    border: 2px dashed var(--app-color-ink-muted)
+    animation: plate-card-pulse 1.4s ease-in-out infinite alternate
+
+    &.plate-card--compact
+        min-height: 4rem
+
+    body[data-fx='reduced'] &
+        animation: none
+
+.plate-card__bar
+    display: block
+    height: 0.9rem
+    background: var(--app-color-ink-muted)
+    opacity: 0.35
+
+    &--short
+        width: 60%
+
+@keyframes plate-card-pulse
+    from
+        opacity: 0.55
+    to
+        opacity: 1
+
+@media (prefers-reduced-motion: reduce)
+    .plate-card--skeleton
+        animation: none
+
 .plate-card--compact
     .plate-card__link
         padding: 0.55rem 0.7rem

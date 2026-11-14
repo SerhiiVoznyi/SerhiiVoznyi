@@ -98,16 +98,19 @@
     display: grid
     place-items: center
     min-height: 0
-    padding: 0 var(--app-chrome-gutter)
+    // Block padding keeps the stage frame, which sits outside the stage, clear of the chrome rows.
+    padding: 0.9rem var(--app-chrome-gutter)
     container-type: size
 
+// The spread keeps 2.4:1 on ultrawide screens and grows taller, down to 2:1, where height is spare.
 .spread-stage
     position: relative
     width: min(100cqw, 100cqh * 2.4)
-    aspect-ratio: 2.4
+    height: min(100cqh, 100cqw / 2)
 
     &[data-view='single']
         width: min(100cqw, 100cqh * 0.82)
+        height: auto
         aspect-ratio: 0.82
 
 .spread-stage__viewport
@@ -258,7 +261,7 @@
         --app-chrome-bottom: 3.25rem
 
     .reader__main
-        padding: 0 0.6rem
+        padding: 0.5rem 0.6rem
 
     .spread-stage__frame
         inset: -0.25rem

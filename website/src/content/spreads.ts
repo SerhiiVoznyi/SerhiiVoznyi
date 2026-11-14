@@ -1,4 +1,4 @@
-import { getPosts } from '@/services'
+import { getJournalManifest, peekPost } from '@/services'
 
 export type SpreadKind = 'map' | 'art' | 'paper' | 'split'
 
@@ -9,20 +9,11 @@ export type SpreadMeta = {
   chapter: string
   kind: SpreadKind
   teaser: string
-  /** Filing date, for spreads that are journal entries. */
+  /** Filing date, for journal entries shown alongside the chapters. */
   date?: string
 }
 
-const postSpreads: SpreadMeta[] = getPosts().map((post) => ({
-  id: `post:${post.slug}`,
-  path: `/blog/${post.slug}`,
-  label: post.title,
-  chapter: 'Journal',
-  kind: 'split',
-  teaser: post.summary,
-  date: post.date,
-}))
-
+/** The chapters, in reading order. Journal entries are read between the Journal and Contact. */
 export const SPREADS: readonly SpreadMeta[] = [
   {
     id: 'map',
@@ -56,7 +47,6 @@ export const SPREADS: readonly SpreadMeta[] = [
     kind: 'paper',
     teaser: 'Field notes on architecture, cloud and leadership.',
   },
-  ...postSpreads,
   {
     id: 'contact',
     path: '/contact',
@@ -71,11 +61,38 @@ export const CHAPTERS = SPREADS.filter((spread) =>
   ['profile', 'experience', 'journal', 'contact'].includes(spread.id),
 )
 
+export const JOURNAL_INDEX = SPREADS.findIndex((spread) => spread.id === 'journal')
+
 const normalize = (pathname: string) =>
   pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname
 
+const ENTRY_PATH = /^\/blog\/([^/]+)$/
+
+/** The slug of a journal entry route, or `null` for any other path. */
+export const entrySlugOf = (pathname: string) => {
+  const match = ENTRY_PATH.exec(normalize(pathname))
+  return match ? decodeURIComponent(match[1]) : null
+}
+
+export const entryPath = (slug: string) => `/blog/${encodeURIComponent(slug)}`
+
+/** Entries belong to the Journal spread; the counter shows their own position beside it. */
 export const findSpreadIndex = (pathname: string) =>
-  SPREADS.findIndex((spread) => spread.path === normalize(pathname))
+  entrySlugOf(pathname) !== null
+    ? JOURNAL_INDEX
+    : SPREADS.findIndex((spread) => spread.path === normalize(pathname))
+
+/**
+ * A sortable reading position: entries sit between the Journal and the next chapter, newest first,
+ * so turning from one entry to an older one turns the page forward.
+ */
+export const spreadOrder = (pathname: string) => {
+  const index = findSpreadIndex(pathname)
+  const slug = entrySlugOf(pathname)
+  if (index < 0 || slug === null) return index
+  const position = peekPost(slug)?.position
+  return index + (position ? position / (getJournalManifest().total + 1) : 0.5)
+}
 
 export const formatSpreadNumber = (index: number) =>
   index < 0 ? '--' : String(index + 1).padStart(2, '0')

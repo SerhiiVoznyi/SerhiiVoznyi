@@ -9,6 +9,8 @@
 ## Blog posts
 
 - One file per post in `src/content/posts/`, kebab-case name, frontmatter with `title`, `date` (ISO), `summary`, `tags` (lowercase), optional `slug`, `cover`, `draft`.
+- Posts are compiled at build time by `plugins/journal.ts`, never bundled: the bundle carries only a small manifest (`virtual:journal-manifest`), and everything else is static JSON under `/journal/` (24-entry index, tag and month pages, one file per entry with its html and neighbours, search shards). Client code reads it through the async, cached API in `src/services/posts/posts.service.ts`; do not import markdown into the client.
+- `JOURNAL_FIXTURES=<n> npm run build -- --outDir dist-fixtures` adds `n` synthetic entries for load testing. Never deploy that output or commit generated fixtures; delete `dist-fixtures` afterwards.
 - Start sections at `##`; the renderer shifts post headings below the sheet's `h2`.
 - Post HTML is rendered without sanitizing because posts are first-party repository content. Never route user-supplied or remote markdown through `renderMarkdown`.
 - Use `draft: true` for unfinished posts; drafts are hidden in production builds.

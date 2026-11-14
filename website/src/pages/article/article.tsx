@@ -1,9 +1,10 @@
 import './article.sass'
 
+import { Suspense, use } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { BackToMap, DisplayTitle, PlateCard, TagChip } from '@/components'
-import { findSpreadIndex, formatSpreadNumber, SPREADS } from '@/content/spreads'
+import { formatSpreadNumber, JOURNAL_INDEX, SPREADS } from '@/content/spreads'
 import type { CSSVars } from '@/lib/cx'
 import {
   Plate,
@@ -12,19 +13,39 @@ import {
   SheetStack,
   SheetStackProvider,
 } from '@/lib/sheet-stack'
-import { formatPostDate, getPost, getPosts, getRelatedPosts } from '@/services'
+import { fetchPost, formatCount, formatPostDate, getJournalManifest } from '@/services'
 
 import { SignalLostPage } from '../signal-lost/signal-lost'
 
-export const ArticlePage = () => {
-  const { slug = '' } = useParams()
-  const post = getPost(slug)
+const ArticleLoading = () => (
+  <SheetScene
+    kind="split"
+    className="article"
+    overlay={<BackToMap className="spread-back" />}>
+    <Plate
+      src="/assets/art/city-plate-night.webp"
+      depth={2}
+      region="right"
+      tone="dim"
+    />
+    <div
+      className="article__title layer"
+      style={{ '--layer-depth': 1 } as CSSVars}>
+      <p className="spread-kicker">Journal entry // decrypting shard</p>
+      <DisplayTitle
+        lines={['Loading entry']}
+        size="md"
+        spreadHeading
+      />
+    </div>
+  </SheetScene>
+)
 
+const ArticleContent = ({ slug }: { slug: string }) => {
+  const post = use(fetchPost(slug))
   if (!post) return <SignalLostPage />
 
-  const related = getRelatedPosts(post)
-  const posts = getPosts()
-  const spreadIndex = findSpreadIndex(`/blog/${post.slug}`)
+  const { total } = getJournalManifest()
 
   return (
     <SheetScene
@@ -80,13 +101,12 @@ export const ArticlePage = () => {
               <dd>{post.readingMinutes} min</dd>
               <dt>Spread</dt>
               <dd>
-                {formatSpreadNumber(spreadIndex)} of{' '}
+                {formatSpreadNumber(JOURNAL_INDEX)} of{' '}
                 {String(SPREADS.length).padStart(2, '0')}
               </dd>
               <dt>Plate</dt>
               <dd>
-                {String(posts.indexOf(post) + 1).padStart(2, '0')} of{' '}
-                {String(posts.length).padStart(2, '0')}
+                {formatCount(post.position)} of {formatCount(total)}
               </dd>
               {post.tags.length > 0 && (
                 <>
@@ -111,15 +131,14 @@ export const ArticlePage = () => {
             teaser="More journal entries"
             treatment="yellow"
             edge="notched">
-            {related.length === 0 ? (
+            {post.related.length === 0 ? (
               <p className="sheet-text">No related entries yet.</p>
             ) : (
               <div className="article__related">
-                {related.map((item) => (
+                {post.related.map((item) => (
                   <PlateCard
                     key={item.slug}
                     post={item}
-                    plate={posts.indexOf(item) + 1}
                     compact
                   />
                 ))}
@@ -129,5 +148,18 @@ export const ArticlePage = () => {
         </SheetStack>
       </SheetStackProvider>
     </SheetScene>
+  )
+}
+
+export const ArticlePage = () => {
+  const { slug = '' } = useParams()
+
+  return (
+    <Suspense fallback={<ArticleLoading />}>
+      <ArticleContent
+        key={slug}
+        slug={slug}
+      />
+    </Suspense>
   )
 }

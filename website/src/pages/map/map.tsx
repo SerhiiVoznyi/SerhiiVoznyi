@@ -13,7 +13,13 @@ import {
 } from '@/components'
 import { EMPLOYERS, IMPACT_HEADLINE } from '@/content/career'
 import { PROFILE } from '@/content/profile'
-import { CHAPTERS, formatSpreadNumber, type SpreadMeta, SPREADS } from '@/content/spreads'
+import {
+  CHAPTERS,
+  entryPath,
+  formatSpreadNumber,
+  type SpreadMeta,
+  SPREADS,
+} from '@/content/spreads'
 import { STICKERS } from '@/content/stickers'
 import { type CSSVars } from '@/lib/cx'
 import {
@@ -23,7 +29,7 @@ import {
   SheetStack,
   SheetStackProvider,
 } from '@/lib/sheet-stack'
-import { formatPostDate, getPosts } from '@/services'
+import { formatCount, formatPostDate, getJournalManifest, prefetchPost } from '@/services'
 
 import { MapBackdrop } from './map-backdrop'
 import { SkillTree } from './skill-tree'
@@ -49,7 +55,7 @@ const Chips = ({ items }: { items: readonly string[] }) => (
 )
 
 const ChapterBriefing = ({ chapter }: { chapter: SpreadMeta }) => {
-  const posts = getPosts()
+  const journal = getJournalManifest()
   const current = EMPLOYERS.at(0)
   const sticker = BRIEFING_STICKERS[chapter.id]
 
@@ -92,12 +98,19 @@ const ChapterBriefing = ({ chapter }: { chapter: SpreadMeta }) => {
       )}
       {chapter.id === 'journal' && (
         <>
-          <p className="sheet-text">{posts.length} entries filed. Latest:</p>
+          <p className="sheet-text">
+            {formatCount(journal.total)} entries filed. Latest:
+          </p>
           <ul className="map__briefing-posts">
-            {posts.slice(0, 2).map((post) => (
+            {journal.latest.slice(0, 2).map((post) => (
               <li key={post.slug}>
                 <time dateTime={post.date}>{formatPostDate(post.date)}</time>
-                <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                <Link
+                  to={entryPath(post.slug)}
+                  onPointerEnter={() => prefetchPost(post.slug)}
+                  onFocus={() => prefetchPost(post.slug)}>
+                  {post.title}
+                </Link>
               </li>
             ))}
           </ul>

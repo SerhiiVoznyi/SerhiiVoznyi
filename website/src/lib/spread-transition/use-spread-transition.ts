@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useReducedMotion } from '@mantine/hooks'
 
-import { findSpreadIndex } from '@/content/spreads'
+import { spreadOrder } from '@/content/spreads'
 
 import { useReader } from '../reader'
 
@@ -28,11 +28,17 @@ export const useSpreadTransition = () => {
   const [direction, setDirection] = useState<TurnDirection>('forward')
 
   if (location.pathname !== target) {
-    const from = findSpreadIndex(displayed.pathname)
-    const to = findSpreadIndex(location.pathname)
+    const from = spreadOrder(displayed.pathname)
+    const to = spreadOrder(location.pathname)
     setTarget(location.pathname)
     setDirection(from >= 0 && to >= 0 && to < from ? 'backward' : 'forward')
     setPhase('exiting')
+  } else if (
+    location.pathname === displayed.pathname &&
+    (location.search !== displayed.search || location.hash !== displayed.hash)
+  ) {
+    // Query changes (Journal search, filters, pages) stay on the same spread without a turn.
+    setDisplayed(location)
   }
 
   const exitMs = reducedMotion ? 0 : TURN_EXIT_MS

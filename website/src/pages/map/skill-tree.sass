@@ -1,11 +1,16 @@
 @use '../../styles/mixins' as *
 
 // One plate unit of the 1200x500 board, so tiles keep their footprint on the circuit at any stage width.
+// The board keeps the 1200x500 coordinate box however tall the stage grows, so traces and tiles agree.
 .skill-tree
     --u: calc(100cqw / 1200)
     --perk-size: calc(var(--u) * 62)
     position: absolute
-    inset: 0
+    top: 50%
+    left: 0
+    width: 100%
+    aspect-ratio: 2.4
+    translate: 0 -50%
 
     ol
         margin: 0
@@ -23,7 +28,7 @@
 .skill-tree__stub
     fill: none
     stroke: var(--app-color-tree-trace-dim)
-    stroke-width: 1
+    stroke-width: 0.7
     stroke-linejoin: miter
 
 .skill-tree__pad
@@ -37,53 +42,30 @@
     fill: var(--app-color-tree-trace)
     opacity: 0.55
 
-// Three strokes on one path read as a ribbon of parallel copper lines: a wide bus, a void gap
-// cut down its middle, then a hairline core.
-.skill-tree__trace
-    path
-        fill: none
-        stroke-linejoin: miter
-        stroke-linecap: square
-        transition: stroke 160ms ease, stroke-opacity 160ms ease
-
-.skill-tree__trace-bus
+.skill-tree__strand
+    fill: none
     stroke: var(--app-color-tree-trace)
-    stroke-opacity: 0.55
-    stroke-width: 6
+    stroke-opacity: 0.5
+    stroke-width: 0.9
+    stroke-linejoin: miter
+    stroke-linecap: square
+    transition: stroke 160ms ease, stroke-opacity 160ms ease
 
-.skill-tree__trace-gap
-    stroke: var(--app-color-void)
-    stroke-width: 3.4
+.skill-tree__trace--powered .skill-tree__strand
+    stroke: var(--app-color-yellow)
+    stroke-opacity: 0.9
 
-.skill-tree__trace-core
-    stroke: var(--app-color-tree-trace)
-    stroke-opacity: 0.45
-    stroke-width: 1
-
-.skill-tree__trace--powered
-    .skill-tree__trace-bus
-        stroke-opacity: 0.95
-
-    .skill-tree__trace-core
-        stroke: var(--app-color-yellow)
-        stroke-opacity: 0.9
-
-.skill-tree__trace--dead
-    .skill-tree__trace-bus
-        stroke-opacity: 0.3
-
-    .skill-tree__trace-core
-        stroke-opacity: 0.25
+.skill-tree__trace--dead .skill-tree__strand
+    stroke-opacity: 0.28
 
 .skill-tree__trace--lit
-    .skill-tree__trace-bus
+    .skill-tree__strand
         stroke: var(--app-color-cyan)
-        stroke-opacity: 1
+        stroke-opacity: 0.85
 
-    .skill-tree__trace-core
-        stroke: var(--app-color-cyan)
+    .skill-tree__strand--core
         stroke-opacity: 1
-        stroke-width: 1.6
+        stroke-width: 1.3
         stroke-dasharray: 7 5
         animation: skill-tree-flow 900ms linear infinite
 
@@ -107,16 +89,22 @@
     translate: -50% -50%
     color: var(--app-text-color-main)
 
-    // Connector comb on the right edge of every tile, where the wiring plugs in.
+    // Connector combs on both edges of every tile, where the bundles plug in.
+    &::before,
     &::after
         content: ''
         position: absolute
-        top: 28%
-        bottom: 28%
-        left: calc(100% + var(--u) * 1)
+        top: 24%
+        bottom: 24%
         width: calc(var(--u) * 4)
-        background: repeating-linear-gradient(180deg, var(--app-color-tree-trace) 0 1px, transparent 1px 4px)
+        background: repeating-linear-gradient(180deg, var(--app-color-tree-trace) 0 1px, transparent 1px calc(var(--u) * 3.5))
         opacity: 0.8
+
+    &::before
+        right: calc(100% + var(--u) * 1)
+
+    &::after
+        left: calc(100% + var(--u) * 1)
 
 .skill-tree__face
     --face-fill: var(--app-color-tree-locked)
@@ -126,18 +114,23 @@
     inset: 0
     display: grid
     place-items: center
-    font-size: calc(var(--perk-size) * 0.52)
-    color: var(--face-ink)
     background: linear-gradient(155deg, var(--face-fill), color-mix(in srgb, var(--face-fill) 55%, var(--app-color-void)))
     box-shadow: inset 0 0 0 2px var(--face-line), inset 0 0 0 4px rgba(10, 10, 11, 0.55), inset 0 0 0 5px var(--face-line)
     @include notch-corner(calc(var(--u) * 10))
     transition: filter 160ms ease
 
-    i
-        line-height: 1
+// White line work in the art masks a fill in the perk's ink colour, so one file serves every state.
+.skill-tree__art
+    width: 80%
+    height: 80%
+    background: var(--face-ink)
+    mask: var(--perk-icon) center / contain no-repeat
+    mask-mode: luminance
 
 .skill-tree__perk--available .skill-tree__face
-    --face-fill: var(--app-color-tree-locked-lit)
+    --face-fill: var(--app-color-tree-locked)
+    --face-line: rgba(0, 240, 255, 0.45)
+    --face-ink: #6ff8ff
 
 .skill-tree__perk--unlocked .skill-tree__face
     --face-fill: var(--app-color-yellow)
@@ -150,9 +143,13 @@
     .skill-tree__face
         --face-fill: #0a1c1f
         --face-line: var(--app-color-void-line)
-        --face-ink: rgba(0, 240, 255, 0.22)
-        font-size: calc(var(--perk-size) * 0.34)
+        --face-ink: rgba(0, 240, 255, 0.3)
 
+    .skill-tree__art
+        width: 62%
+        height: 62%
+
+    .skill-tree__tile::before,
     .skill-tree__tile::after
         opacity: 0.3
 
@@ -290,7 +287,7 @@
         stroke-dashoffset: -24
 
 body[data-fx='reduced'] .skill-tree
-    .skill-tree__trace-core
+    .skill-tree__strand
         animation: none
 
     .skill-tree__perk
@@ -298,10 +295,10 @@ body[data-fx='reduced'] .skill-tree
 
 @media (prefers-reduced-motion: reduce)
     .skill-tree
-        .skill-tree__trace-core
+        .skill-tree__strand
             animation: none
 
         .skill-tree__tip,
         .skill-tree__face,
-        .skill-tree__trace path
+        .skill-tree__strand
             transition: none
