@@ -3,18 +3,22 @@
 .map
     --single-stack-top: 40%
 
+    // The tree's side of the board stays dark; the title and briefings get a deeper backing over the art.
     .map__shade
         position: absolute
         inset: 0
-        background: linear-gradient(90deg, transparent 30%, rgba(10, 10, 11, 0.72) 62%, rgba(10, 10, 11, 0.9)), linear-gradient(0deg, rgba(10, 10, 11, 0.7), transparent 55%)
+        background: linear-gradient(90deg, rgba(10, 10, 11, 0.45), rgba(10, 10, 11, 0.1) 40%, rgba(10, 10, 11, 0.55) 64%, rgba(10, 10, 11, 0.82)), linear-gradient(0deg, rgba(10, 10, 11, 0.55), transparent 35%)
 
     .map__title
-        top: 14%
-        right: 10%
-        width: 38%
+        top: 5%
+        right: 3%
+        width: 34%
         display: flex
         flex-direction: column
-        gap: 0.8rem
+        gap: 0.5rem
+
+        .display-title
+            font-size: clamp(2rem, min(10.5cqh, 5.6cqw), 5.5rem)
 
     .map__rule
         width: 9rem
@@ -22,171 +26,9 @@
     .map__role
         margin: 0
         @include hud-label
-        font-size: clamp(0.82rem, 0.74rem + 0.2vw, 0.95rem)
-        line-height: 1.8
+        font-size: clamp(0.72rem, 0.66rem + 0.2vw, 0.88rem)
+        line-height: 1.7
         color: var(--app-color-yellow)
-
-    .map__markers
-        position: absolute
-        inset: 0
-
-        ul
-            margin: 0
-            padding: 0
-            list-style: none
-
-    .map__links
-        position: absolute
-        inset: 0
-        width: 100%
-        height: 100%
-        overflow: visible
-        pointer-events: none
-
-    .map__link
-        animation: map-link-in 220ms ease-out
-
-    .map__link-glow
-        stroke: var(--app-color-cyan)
-        stroke-opacity: 0.25
-        stroke-width: 6
-        stroke-linecap: round
-
-    .map__link-line
-        stroke: var(--app-color-cyan)
-        stroke-width: 1.8
-        stroke-dasharray: 7 5
-        animation: map-link-flow 900ms linear infinite
-
-    .map__link-end
-        fill: var(--app-color-yellow)
-
-    // A zero-size anchor on the node: the pin centres on it, the label hangs off it when revealed.
-    .map__marker
-        position: absolute
-        top: var(--marker-y)
-        left: var(--marker-x)
-
-        &:hover,
-        &:focus-within
-            z-index: 2
-
-        a
-            position: absolute
-            top: 0
-            left: 0
-            width: 0.9rem
-            height: 0.9rem
-            translate: -50% -50%
-            color: var(--app-text-color-main)
-
-            // Labels are hidden, so the bare pin needs a finger-sized target.
-            &::before
-                content: ''
-                position: absolute
-                inset: -0.6rem
-
-            &:focus-visible
-                outline: none
-
-            &:hover .map__marker-label,
-            &:focus-visible .map__marker-label
-                color: var(--app-color-ink)
-                background: var(--app-color-cyan)
-
-                .map__marker-place
-                    color: var(--app-color-ink)
-
-    .map__marker-pin
-        position: absolute
-        inset: 0
-        background: var(--app-color-void)
-        border: 2px solid var(--app-color-cyan)
-        transform: rotate(45deg)
-
-        &::after
-            content: ''
-            position: absolute
-            inset: -0.55rem
-            border: 1px solid var(--app-color-cyan-dim)
-            animation: map-ping 2.6s ease-out infinite
-
-    .map__marker--entry .map__marker-pin
-        inset: 0.125rem
-        border-color: var(--app-color-yellow)
-
-        &::after
-            content: none
-
-    .map__marker--active .map__marker-pin
-        background: var(--app-color-yellow)
-        border-color: var(--app-color-yellow)
-
-    .map__marker--linked .map__marker-label
-        border-color: var(--app-color-cyan)
-
-    // Type follows the stage width so labels keep their footprint on the plate's coordinates.
-    // Hidden labels stay in the accessibility tree (opacity, not visibility) so links keep their names.
-    .map__marker-label
-        --label-shift: 0.3rem
-        position: absolute
-        display: flex
-        flex-direction: column
-        gap: 0.1rem
-        padding: 0.34em 0.74em
-        white-space: nowrap
-        @include hud-label
-        font-size: clamp(0.56rem, 0.84cqw, 0.74rem)
-        background: rgba(10, 10, 11, 0.9)
-        border: 1px solid var(--app-color-cyan-dim)
-        opacity: 0
-        translate: 0 var(--label-shift)
-        pointer-events: none
-        transition: opacity 160ms ease, translate 160ms ease, background-color 140ms ease, color 140ms ease, border-color 140ms ease
-
-    .map__marker:hover,
-    .map__marker:focus-within,
-    .map__marker--active
-        .map__marker-label
-            opacity: 1
-            translate: 0 0
-            pointer-events: auto
-
-    .map__marker--right .map__marker-label
-        left: -0.15rem
-
-    .map__marker--left .map__marker-label
-        right: -0.15rem
-
-    .map__marker--above .map__marker-label
-        bottom: calc(100% + 0.4rem)
-
-    .map__marker--below .map__marker-label
-        --label-shift: -0.3rem
-        top: calc(100% + 0.4rem)
-
-    .map__marker-name
-        display: flex
-        gap: 0.6em
-
-    .map__marker-index
-        flex-shrink: 0
-        color: var(--app-color-yellow)
-
-    // Entry titles are long; the label stays one stop wide until it is aimed at.
-    .map__marker--entry .map__marker-title
-        max-width: 8.2em
-        overflow: hidden
-        text-overflow: ellipsis
-
-    .map__marker--entry:hover .map__marker-title,
-    .map__marker--entry:focus-within .map__marker-title
-        max-width: none
-
-    .map__marker-place
-        font-size: 0.81em
-        letter-spacing: 0.1em
-        color: var(--app-text-color-muted)
 
     .map__briefing
         > * + *
@@ -199,12 +41,16 @@
         .glance-strip
             margin-bottom: 0
 
-        .cyan-pill
-            position: sticky
-            bottom: 0
-            z-index: 1
-            margin-top: 1rem
-            box-shadow: 0 0 0 0.5rem var(--app-color-void-raised)
+    // The pill's notched clip would cut a shadow, so a full-width strip backs it while copy scrolls under.
+    .map__briefing-action
+        --sheet-pad-bottom: 1.4rem
+        position: sticky
+        bottom: calc(var(--sheet-pad-bottom) * -1)
+        z-index: 1
+        margin-top: 0.5rem
+        padding: 0.5rem 0 var(--sheet-pad-bottom)
+        margin-bottom: calc(var(--sheet-pad-bottom) * -1)
+        background: var(--app-color-void-raised)
 
     .map__briefing .sticker--float
         --sticker-size: clamp(2.75rem, 4.5cqw, 3.75rem)
@@ -227,10 +73,9 @@
         list-style: none
 
         li
-            display: grid
-            grid-template-columns: 6.5rem 1fr
-            gap: 0.75rem
-            align-items: baseline
+            display: flex
+            flex-direction: column
+            gap: 0.1rem
 
         time
             @include hud-label
@@ -246,52 +91,58 @@
                 color: var(--app-color-yellow)
                 text-decoration: underline
 
-    // Single view keeps the same stops in the same order as a flow of links above the stack.
+    // Single view keeps the same perks in the same order as a flow of chips above the stack.
     &[data-view='single']
         --single-stack-top: 60%
 
-        .map__links,
-        .map__marker-pin,
-        .map__marker-place
+        .skill-tree__circuit,
+        .skill-tree__sockets,
+        .skill-tree__readout,
+        .skill-tree__tip,
+        .skill-tree__tile::after
             display: none
 
-        .map__markers
+        .skill-tree
             inset: auto 5% calc(100% - var(--single-stack-top) + 2%)
 
             ol
                 display: flex
                 flex-wrap: wrap
-                gap: 0.35rem 0.4rem
+                gap: 0.4rem
 
-        .map__marker
+        .skill-tree__perk
+            position: static
+            filter: none
+
+        .skill-tree__tile
             position: static
             display: flex
             align-items: center
-            gap: 0.4rem
-
-            & + .map__marker::before
-                content: '›' / ''
-                color: var(--app-color-cyan)
-
-            a
-                position: static
-                width: auto
-                height: auto
-                translate: none
-
-                &::before
-                    content: none
-
-        .map__marker-label
-            position: static
-            padding: 0.2rem 0.4rem
-            font-size: 0.62rem
-            opacity: 1
+            gap: 0.45rem
+            width: auto
+            height: auto
+            padding-right: 0.5rem
             translate: none
-            pointer-events: auto
+            background: rgba(10, 10, 11, 0.86)
+            border: 1px solid var(--app-color-cyan-dim)
 
-        .map__marker--entry .map__marker-title
-            max-width: 5rem
+        .skill-tree__face
+            position: relative
+            inset: auto
+            flex-shrink: 0
+            width: 1.6rem
+            height: 1.6rem
+            font-size: 0.95rem
+            box-shadow: none
+            @include notch-corner(5px)
+
+        .skill-tree__name
+            position: static
+            max-width: 9rem
+            padding: 0
+            translate: none
+            font-size: 0.62rem
+            background: none
 
         .map__shade
             background: linear-gradient(180deg, rgba(10, 10, 11, 0.6), rgba(10, 10, 11, 0.88) 60%)
@@ -302,30 +153,5 @@
             right: 5%
             width: auto
 
-@keyframes map-ping
-    0%
-        opacity: 0.9
-        transform: scale(0.6)
-    100%
-        opacity: 0
-        transform: scale(1.5)
-
-@keyframes map-link-in
-    from
-        opacity: 0
-
-@keyframes map-link-flow
-    to
-        stroke-dashoffset: -24
-
-body[data-fx='reduced'] .map .map__link-line
-    animation: none
-
-@media (prefers-reduced-motion: reduce)
-    .map .map__marker-pin::after,
-    .map .map__link,
-    .map .map__link-line
-        animation: none
-
-    .map .map__marker-label
-        transition: none
+            .display-title
+                font-size: clamp(2.4rem, min(19cqh, 9.5cqw), 10rem)

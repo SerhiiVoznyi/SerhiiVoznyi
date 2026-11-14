@@ -78,7 +78,7 @@ Near layers drift with the pointer and far ones drift against it, so keep text o
 
 ## Making layout respond to the stack
 
-- Read `useSheetStack()` inside the provider to react to the front sheet: for example, the map highlights the marker whose chapter sheet is in front.
+- Read `useSheetStack()` inside the provider to react to the front sheet: for example, the map highlights the perk whose chapter sheet is in front.
 - Call `promote(id)` for hover or scroll-driven promotion, and `promote(id, { focus: true })` when the control that triggered it disappears (spines, filters).
 - Content that should change with depth goes inside the `Sheet` children; stacked sheets only show the spine.
 

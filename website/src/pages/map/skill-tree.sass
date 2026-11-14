@@ -1,0 +1,307 @@
+@use '../../styles/mixins' as *
+
+// One plate unit of the 1200x500 board, so tiles keep their footprint on the circuit at any stage width.
+.skill-tree
+    --u: calc(100cqw / 1200)
+    --perk-size: calc(var(--u) * 62)
+    position: absolute
+    inset: 0
+
+    ol
+        margin: 0
+        padding: 0
+        list-style: none
+
+.skill-tree__circuit
+    position: absolute
+    inset: 0
+    width: 100%
+    height: 100%
+    overflow: visible
+    pointer-events: none
+
+.skill-tree__stub
+    fill: none
+    stroke: var(--app-color-tree-trace-dim)
+    stroke-width: 1
+    stroke-linejoin: miter
+
+.skill-tree__pad
+    fill: var(--app-color-tree-trace)
+    opacity: 0.7
+
+.skill-tree__trace-label
+    font-family: var(--app-font-mono)
+    font-size: 6.5px
+    letter-spacing: 0.08em
+    fill: var(--app-color-tree-trace)
+    opacity: 0.55
+
+// Three strokes on one path read as a ribbon of parallel copper lines: a wide bus, a void gap
+// cut down its middle, then a hairline core.
+.skill-tree__trace
+    path
+        fill: none
+        stroke-linejoin: miter
+        stroke-linecap: square
+        transition: stroke 160ms ease, stroke-opacity 160ms ease
+
+.skill-tree__trace-bus
+    stroke: var(--app-color-tree-trace)
+    stroke-opacity: 0.55
+    stroke-width: 6
+
+.skill-tree__trace-gap
+    stroke: var(--app-color-void)
+    stroke-width: 3.4
+
+.skill-tree__trace-core
+    stroke: var(--app-color-tree-trace)
+    stroke-opacity: 0.45
+    stroke-width: 1
+
+.skill-tree__trace--powered
+    .skill-tree__trace-bus
+        stroke-opacity: 0.95
+
+    .skill-tree__trace-core
+        stroke: var(--app-color-yellow)
+        stroke-opacity: 0.9
+
+.skill-tree__trace--dead
+    .skill-tree__trace-bus
+        stroke-opacity: 0.3
+
+    .skill-tree__trace-core
+        stroke-opacity: 0.25
+
+.skill-tree__trace--lit
+    .skill-tree__trace-bus
+        stroke: var(--app-color-cyan)
+        stroke-opacity: 1
+
+    .skill-tree__trace-core
+        stroke: var(--app-color-cyan)
+        stroke-opacity: 1
+        stroke-width: 1.6
+        stroke-dasharray: 7 5
+        animation: skill-tree-flow 900ms linear infinite
+
+// A zero-size anchor on the node: the tile centres on it, the readout, name and tip hang off it.
+.skill-tree__perk
+    position: absolute
+    top: var(--perk-y)
+    left: var(--perk-x)
+
+    &:hover,
+    &:focus-within
+        z-index: 3
+
+.skill-tree__tile
+    position: absolute
+    top: 0
+    left: 0
+    display: block
+    width: var(--perk-size)
+    height: var(--perk-size)
+    translate: -50% -50%
+    color: var(--app-text-color-main)
+
+    // Connector comb on the right edge of every tile, where the wiring plugs in.
+    &::after
+        content: ''
+        position: absolute
+        top: 28%
+        bottom: 28%
+        left: calc(100% + var(--u) * 1)
+        width: calc(var(--u) * 4)
+        background: repeating-linear-gradient(180deg, var(--app-color-tree-trace) 0 1px, transparent 1px 4px)
+        opacity: 0.8
+
+.skill-tree__face
+    --face-fill: var(--app-color-tree-locked)
+    --face-line: var(--app-color-cyan-dim)
+    --face-ink: var(--app-color-cyan)
+    position: absolute
+    inset: 0
+    display: grid
+    place-items: center
+    font-size: calc(var(--perk-size) * 0.52)
+    color: var(--face-ink)
+    background: linear-gradient(155deg, var(--face-fill), color-mix(in srgb, var(--face-fill) 55%, var(--app-color-void)))
+    box-shadow: inset 0 0 0 2px var(--face-line), inset 0 0 0 4px rgba(10, 10, 11, 0.55), inset 0 0 0 5px var(--face-line)
+    @include notch-corner(calc(var(--u) * 10))
+    transition: filter 160ms ease
+
+    i
+        line-height: 1
+
+.skill-tree__perk--available .skill-tree__face
+    --face-fill: var(--app-color-tree-locked-lit)
+
+.skill-tree__perk--unlocked .skill-tree__face
+    --face-fill: var(--app-color-yellow)
+    --face-line: rgba(18, 18, 18, 0.55)
+    --face-ink: var(--app-color-ink)
+
+.skill-tree__perk--locked
+    pointer-events: none
+
+    .skill-tree__face
+        --face-fill: #0a1c1f
+        --face-line: var(--app-color-void-line)
+        --face-ink: rgba(0, 240, 255, 0.22)
+        font-size: calc(var(--perk-size) * 0.34)
+
+    .skill-tree__tile::after
+        opacity: 0.3
+
+// The glow sits on the unclipped wrapper, so it follows the chopped outline of the face.
+.skill-tree__perk--active,
+.skill-tree__perk--linked,
+.skill-tree__perk:hover,
+.skill-tree__perk:focus-within
+    filter: drop-shadow(0 0 calc(var(--u) * 7) var(--app-color-cyan-dim))
+
+    .skill-tree__face
+        filter: brightness(1.18)
+
+.skill-tree__perk--unlocked.skill-tree__perk--active,
+.skill-tree__perk--unlocked:hover,
+.skill-tree__perk--unlocked:focus-within
+    filter: drop-shadow(0 0 calc(var(--u) * 9) rgba(252, 238, 10, 0.55))
+
+.skill-tree__perk--linked .skill-tree__face
+    --face-line: var(--app-color-cyan)
+
+.skill-tree__readout
+    position: absolute
+    bottom: calc(100% + var(--u) * 3)
+    left: 0
+    right: 0
+    display: flex
+    justify-content: space-between
+    gap: 0.3em
+    font-family: var(--app-font-mono)
+    font-size: clamp(0.45rem, calc(var(--u) * 8.5), 0.68rem)
+    line-height: 1
+    letter-spacing: 0.04em
+    white-space: nowrap
+
+.skill-tree__code
+    color: var(--app-text-color-muted)
+    opacity: 0.8
+
+.skill-tree__level
+    color: var(--app-color-cyan)
+
+    &--full
+        color: var(--app-color-yellow)
+
+    &--empty
+        color: var(--app-color-red)
+
+.skill-tree__name
+    position: absolute
+    top: calc(100% + var(--u) * 5)
+    left: 50%
+    max-width: calc(var(--perk-size) * 2.3)
+    overflow: hidden
+    translate: -50% 0
+    padding: 0.15em 0.4em
+    font-family: var(--app-font-display)
+    font-size: clamp(0.5rem, calc(var(--u) * 10), 0.78rem)
+    font-weight: 700
+    line-height: 1.2
+    letter-spacing: 0.08em
+    text-align: center
+    text-overflow: ellipsis
+    text-transform: uppercase
+    white-space: nowrap
+    color: var(--app-text-color-main)
+    background: rgba(10, 10, 11, 0.72)
+
+.skill-tree__perk--unlocked .skill-tree__name
+    color: var(--app-color-yellow)
+
+// The tip stays in the accessibility tree (opacity, not visibility) so the place reads with the name.
+.skill-tree__tip
+    --tip-shift: calc(var(--u) * 6)
+    position: absolute
+    top: 0
+    display: flex
+    flex-direction: column
+    gap: 0.25em
+    width: max-content
+    max-width: 17em
+    padding: 0.55em 0.8em 0.6em
+    @include hud-label
+    font-size: clamp(0.56rem, 0.84cqw, 0.74rem)
+    line-height: 1.35
+    color: var(--app-text-color-main)
+    background: rgba(10, 10, 11, 0.94)
+    border: 1px solid var(--app-color-cyan-dim)
+    border-left: 3px solid var(--app-color-yellow)
+    opacity: 0
+    translate: var(--tip-shift) 0
+    pointer-events: none
+    transition: opacity 160ms ease, translate 160ms ease
+
+.skill-tree__perk--tip-right .skill-tree__tip
+    left: calc(100% + var(--u) * 12)
+
+.skill-tree__perk--tip-left .skill-tree__tip
+    --tip-shift: calc(var(--u) * -6)
+    right: calc(100% + var(--u) * 12)
+
+.skill-tree__perk:hover .skill-tree__tip,
+.skill-tree__perk:focus-within .skill-tree__tip
+    opacity: 1
+    translate: 0 0
+
+.skill-tree__tip-head
+    display: flex
+    gap: 0.6em
+    color: var(--app-text-color-muted)
+
+.skill-tree__tip-index
+    color: var(--app-color-yellow)
+
+.skill-tree__tip-title
+    font-family: var(--app-font-display)
+    font-size: 1.15em
+    font-weight: 700
+    letter-spacing: 0.04em
+    white-space: normal
+    color: var(--app-color-yellow)
+
+.skill-tree__tip-place
+    color: var(--app-color-cyan)
+
+.skill-tree__tip-teaser
+    font-family: var(--app-font-body)
+    font-size: 1.15em
+    letter-spacing: 0
+    text-transform: none
+    white-space: normal
+
+@keyframes skill-tree-flow
+    to
+        stroke-dashoffset: -24
+
+body[data-fx='reduced'] .skill-tree
+    .skill-tree__trace-core
+        animation: none
+
+    .skill-tree__perk
+        filter: none
+
+@media (prefers-reduced-motion: reduce)
+    .skill-tree
+        .skill-tree__trace-core
+            animation: none
+
+        .skill-tree__tip,
+        .skill-tree__face,
+        .skill-tree__trace path
+            transition: none
