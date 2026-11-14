@@ -18,11 +18,14 @@
         gap: 0.8rem
 
     &[data-view='single']
+        --single-stack-top: 22%
+
+        // Pinned to the stack's top edge so long titles grow upward instead of leaving a gap.
         .article__title
-            top: 10%
+            top: auto
             left: 4%
             right: 4%
-            bottom: auto
+            bottom: calc(100% - var(--single-stack-top) + 1.5%)
             padding: 0
             background: none
             border: 0
