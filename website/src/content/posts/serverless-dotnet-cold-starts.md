@@ -21,13 +21,13 @@ The second item is the one you control most directly, and it is usually the bigg
 
 ## Fixes, cheapest first
 
-| Fix | Effort | Typical gain |
-| --- | --- | --- |
-| More memory (more CPU) | Config change | Large |
-| Lazy SDK clients, trimmed DI | Small refactor | Medium |
-| ReadyToRun compilation | Build flag | Medium |
-| SnapStart | Config plus testing | Large |
-| Native AOT | Real engineering | Largest |
+| Fix                          | Effort              | Typical gain |
+| ---------------------------- | ------------------- | ------------ |
+| More memory (more CPU)       | Config change       | Large        |
+| Lazy SDK clients, trimmed DI | Small refactor      | Medium       |
+| ReadyToRun compilation       | Build flag          | Medium       |
+| SnapStart                    | Config plus testing | Large        |
+| Native AOT                   | Real engineering    | Largest      |
 
 Memory is the lever people forget: Lambda allocates CPU proportionally, so doubling memory often halves init time and costs less than you expect, because you also pay for fewer milliseconds.
 

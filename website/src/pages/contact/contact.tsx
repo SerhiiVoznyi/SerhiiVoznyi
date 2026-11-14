@@ -1,7 +1,16 @@
 import './contact.sass'
 
-import { BackToMap, Decal, DisplayTitle, HazardRule, SocialLinks } from '@/components'
+import {
+  BackToMap,
+  Decal,
+  DisplayTitle,
+  HazardRule,
+  SocialLinks,
+  Sticker,
+  TagChip,
+} from '@/components'
 import { PROFILE } from '@/content/profile'
+import { STICKERS } from '@/content/stickers'
 import type { CSSVars } from '@/lib/cx'
 import {
   Plate,
@@ -45,10 +54,23 @@ export const ContactPage = () => (
           id="channels"
           index={1}
           title="Channels"
-          teaser="LinkedIn · GitHub · Email"
+          teaser={PROFILE.availability.status}
           treatment="yellow"
           edge="notched">
-          <p className="sheet-text sheet-text--lead">{PROFILE.topics}</p>
+          <p className="status-tag">{PROFILE.availability.status}</p>
+          <p className="sheet-text sheet-text--lead">{PROFILE.availability.statement}</p>
+          <p className="sheet-text">{PROFILE.availability.invitation}</p>
+          <h3 className="sheet-subhead">Topics</h3>
+          <p className="sheet-text">{PROFILE.topics}</p>
+          <ul
+            className="chip-row"
+            aria-label="Topics">
+            {PROFILE.talkAbout.map((item) => (
+              <li key={item}>
+                <TagChip tag={item} />
+              </li>
+            ))}
+          </ul>
           <HazardRule
             tone="ink"
             className="contact__rule"
@@ -59,17 +81,26 @@ export const ContactPage = () => (
           id="signal"
           index={2}
           title="Signal"
-          teaser="Base, time zone, handle"
+          teaser="Status, base, time zone, languages"
           treatment="ink">
+          <Sticker
+            src={STICKERS.antenna}
+            rotate={6}
+            size="lg"
+          />
           <dl className="data-rows">
+            <dt>Status</dt>
+            <dd>{PROFILE.availability.status}</dd>
+            <dt>Role</dt>
+            <dd>{PROFILE.role}</dd>
             <dt>Base</dt>
             <dd>{PROFILE.location}</dd>
             <dt>Time zone</dt>
             <dd>CET · UTC+1</dd>
             <dt>Handle</dt>
             <dd>{PROFILE.handle}</dd>
-            <dt>Talk about</dt>
-            <dd>Architecture · .NET / AWS · Leadership</dd>
+            <dt>Languages</dt>
+            <dd>{PROFILE.languages.map((language) => language.name).join(' · ')}</dd>
           </dl>
         </Sheet>
       </SheetStack>

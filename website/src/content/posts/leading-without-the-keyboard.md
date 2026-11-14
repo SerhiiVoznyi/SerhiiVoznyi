@@ -20,7 +20,7 @@ What changed my approach was treating my own time as the scarcest resource in th
 - **Ask for the hypothesis first.** "What do you think is happening?" gets someone reasoning instead of waiting.
 - **Pair, but navigate.** I describe direction; they drive. It is slower the first time and much faster the fifth.
 - **Write the decision down.** A short architecture decision record turns a one-off conversation into something the next person can read.
-- **Make review a teaching surface.** A review comment that explains *why* is worth ten that just say what to change.
+- **Make review a teaching surface.** A review comment that explains _why_ is worth ten that just say what to change.
 
 ## When to take the keyboard anyway
 

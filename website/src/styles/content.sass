@@ -18,56 +18,115 @@
         color: var(--app-color-red)
 
 .sheet-text
-    margin: 0 0 0.85rem
-    font-size: 0.98rem
-    line-height: 1.58
+    max-width: 65ch
+    margin: 0 0 1rem
+    font-size: var(--app-text-body)
+    line-height: 1.6
 
     &--lead
         font-family: var(--app-font-display)
-        font-size: 1.12rem
+        font-size: var(--app-text-lead)
         font-weight: 600
         line-height: 1.35
 
 .data-rows
     display: grid
     grid-template-columns: max-content 1fr
-    gap: 0.55rem 1.1rem
+    gap: 0.7rem 1.25rem
     margin: 0
+
+    > div
+        display: contents
 
     dt
         @include hud-label
-        padding-top: 0.2rem
-        opacity: 0.7
+        padding-top: 0.25rem
+        opacity: 0.75
 
     dd
         margin: 0
         font-family: var(--app-font-display)
+        font-size: var(--app-text-body)
         font-weight: 700
         letter-spacing: 0.02em
         text-transform: uppercase
 
-.focus-list
+.glance-strip
     display: flex
-    flex-direction: column
-    gap: 0.6rem
-    margin: 0
-    padding: 0
-    list-style: none
+    flex-wrap: wrap
+    gap: 0.5rem
+    margin: 0 0 1rem
 
-    li
-        position: relative
-        padding-left: 1.4rem
-        line-height: 1.45
+    > div
+        display: flex
+        flex-direction: column
+        gap: 0.15rem
+        padding: 0.45rem 0.75rem 0.5rem
+        color: var(--app-color-paper)
+        background: var(--app-color-ink)
+        border-left: 4px solid var(--app-color-yellow)
 
-        &::before
-            content: ''
-            position: absolute
-            top: 0.42em
-            left: 0
-            width: 0.6rem
-            height: 0.6rem
-            background: var(--app-color-ink)
-            @include notch-corner(3px)
+        .sheet[data-treatment='ink'] &
+            background: var(--app-color-cyan-ghost)
+            outline: 1px solid var(--app-color-cyan-dim)
+
+    dt
+        @include hud-label
+        font-size: var(--app-text-small)
+        opacity: 0.75
+
+    dd
+        margin: 0
+        font-family: var(--app-font-display)
+        font-size: var(--app-text-body)
+        font-weight: 700
+        letter-spacing: 0.02em
+        text-transform: uppercase
+        color: var(--app-color-yellow)
+
+.status-tag
+    display: inline-flex
+    align-items: center
+    gap: 0.5rem
+    margin: 0 0 0.85rem
+    padding: 0.25rem 0.6rem
+    @include hud-label
+    font-weight: 700
+    color: var(--app-color-yellow)
+    background: var(--app-color-ink)
+    border-left: 4px solid var(--app-color-yellow)
+
+    &::before
+        content: ''
+        width: 0.5rem
+        height: 0.5rem
+        background: var(--app-color-yellow)
+        border-radius: 50%
+        box-shadow: 0 0 0.5rem var(--app-color-yellow)
+
+.sheet-subhead
+    margin: 1.25rem 0 0.5rem
+    @include hud-label
+    font-weight: 700
+
+    &:first-child
+        margin-top: 0
+
+.sheet-list
+    max-width: 65ch
+    margin: 0 0 1rem
+    padding-left: 1.2rem
+    font-size: var(--app-text-body)
+    line-height: 1.5
+
+    li + li
+        margin-top: 0.4rem
+
+    li::marker
+        color: var(--app-color-red)
+
+    .sheet[data-treatment='ink'] & li::marker
+        color: var(--app-color-yellow)
 
 .chip-row
     display: flex
@@ -78,8 +137,9 @@
     list-style: none
 
 .prose
-    font-size: 0.98rem
-    line-height: 1.62
+    max-width: 68ch
+    font-size: var(--app-text-body)
+    line-height: 1.65
 
     > :first-child
         margin-top: 0
@@ -95,14 +155,14 @@
         text-transform: uppercase
 
     h3
-        font-size: 1.12rem
+        font-size: var(--app-text-lead)
 
         &::before
             content: '// '
             color: var(--app-color-ink-muted)
 
     h4
-        font-size: 1rem
+        font-size: var(--app-text-body)
 
     ul, ol
         padding-left: 1.3rem
@@ -151,13 +211,13 @@
             padding: 0
             color: inherit
             background: none
-            font-size: 0.82rem
+            font-size: 0.88rem
             line-height: 1.55
 
     table
         width: 100%
         border-collapse: collapse
-        font-size: 0.88rem
+        font-size: 0.95rem
 
     th, td
         padding: 0.4rem 0.55rem

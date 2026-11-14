@@ -6,6 +6,7 @@ import type { Location } from 'react-router-dom'
 import { SpreadTransition } from '@/lib/spread-transition'
 
 import { BottomToolbar } from './bottom-toolbar'
+import { ReaderBleed } from './reader-bleed'
 import { ReaderHotkeys } from './reader-hotkeys'
 import { SpreadAnnouncer } from './spread-announcer'
 import { SpreadStage } from './spread-stage'
@@ -30,11 +31,8 @@ export const ReaderShell = ({ renderSpread }: ReaderShellProps) => (
       <SpreadStage>
         <SpreadTransition>{renderSpread}</SpreadTransition>
       </SpreadStage>
-      <span
-        className="reader__bleed"
-        aria-hidden="true"
-      />
     </main>
+    <ReaderBleed />
     <BottomToolbar />
     <SpreadAnnouncer />
     <ReaderHotkeys />

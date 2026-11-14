@@ -2,7 +2,8 @@
 
 ## Copy
 
-- Profile facts (name, role, location, experience, focus, stack, links) come only from `src/content/profile.ts`. Do not invent biography, employers, metrics or quotes; if copy needs a fact that is not there, ask.
+- Profile facts (name, role, location, experience, focus, stack, links) come only from `src/content/profile.ts`; employers, projects and metrics from `src/content/career.ts`. Do not invent biography, employers, metrics or quotes; if copy needs a fact that is not there, ask.
+- **Company names are under NDA.** Real employer and customer names, client contact names, office addresses and client-identifying project codenames never enter the repository — not in code, comments, posts, commit messages or alt text. Use the Cyberpunk 2077 corp aliases in `src/content/corps.ts` and always render them through `CorpName` (marker plus NDA tooltip); any sheet that shows a corp name also renders `NdaNote`. Everything else in the career data is real and stays accurate.
 - Blog posts are written in Serhii's voice and are his to approve. Agents may draft posts on request but must say they are drafts.
 
 ## Blog posts

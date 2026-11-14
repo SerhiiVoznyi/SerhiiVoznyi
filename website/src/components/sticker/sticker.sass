@@ -1,0 +1,37 @@
+.sticker
+    --sticker-size: 4.5rem
+    width: var(--sticker-size)
+    height: var(--sticker-size)
+    object-fit: contain
+    pointer-events: none
+    user-select: none
+    transform: rotate(var(--sticker-rotate))
+    filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.45))
+
+    &--sm
+        --sticker-size: 2.25rem
+
+    &--md
+        --sticker-size: clamp(3.5rem, 6cqw, 4.75rem)
+
+    &--lg
+        --sticker-size: clamp(4.5rem, 8cqw, 6.25rem)
+
+    &--float
+        float: right
+        margin: 0 0 0.75rem 1rem
+        shape-outside: circle(50%)
+
+    &--inline
+        flex: none
+
+body[data-fx='reduced']
+    .sticker
+        filter: none
+
+    .sticker--float
+        display: none
+
+@media (max-width: 600px)
+    .sticker--float
+        display: none

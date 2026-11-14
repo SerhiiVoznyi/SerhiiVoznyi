@@ -24,7 +24,7 @@ export type MapStop = {
 }
 
 // Pins scatter across the open top-left of the plate: the briefing stack covers the lower left
-// from 47% down and the title block everything right of 52% below the top band.
+// from 45% down and the title block everything right of 52% below the top band.
 const AREA = { left: 55, right: 590, top: 45, bottom: 205 }
 const CANDIDATES = 8
 const SHUFFLE = 'night-file-2'
