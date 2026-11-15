@@ -3,8 +3,13 @@ import './article.sass'
 import { Suspense, use } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { BackToMap, DisplayTitle, PlateCard, TagChip } from '@/components'
-import { formatSpreadNumber, JOURNAL_INDEX, SPREADS } from '@/content/spreads'
+import { BackToMap, CyanPill, DisplayTitle, PlateCard, TagChip } from '@/components'
+import {
+  formatSpreadNumber,
+  JOURNAL_INDEX,
+  readModePath,
+  SPREADS,
+} from '@/content/spreads'
 import type { CSSVars } from '@/lib/cx'
 import {
   Plate,
@@ -70,6 +75,14 @@ const ArticleContent = ({ slug }: { slug: string }) => {
             size="md"
             spreadHeading
           />
+          <span className="article__read">
+            <CyanPill
+              href={readModePath(slug)}
+              newTab
+              icon="la-book-open">
+              Read mode
+            </CyanPill>
+          </span>
         </div>
         <SheetStack
           label="Article sheets"

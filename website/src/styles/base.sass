@@ -39,6 +39,12 @@ img
     outline: 2px solid var(--app-color-cyan)
     outline-offset: 3px
 
+@keyframes attention-pulse
+    0%, 100%
+        filter: drop-shadow(0 0 0.15rem rgba(0, 240, 255, 0.5))
+    50%
+        filter: drop-shadow(0 0 0.55rem rgba(0, 240, 255, 1)) drop-shadow(0 0 1.1rem rgba(0, 240, 255, 0.55))
+
 @keyframes glitch-slice-a
     0%, 88%, 100%
         opacity: 0

@@ -41,7 +41,7 @@ Serhii Voznyi's personal brand site and blog, built as an interactive **artbook 
 | `public/assets/audio/`         | Soundtrack MP3s — **git-ignored**, deployed separately                                                |
 | `public/404.html`              | Deep-link fallback for static hosts                                                                   |
 
-Routes: `/` Map, `/profile`, `/experience`, `/blog` (Journal), `/blog/:slug` (Article), `/contact`, `*` Signal Lost. `/home` redirects to `/`; the legacy `/identity`, `/dossier` and `/uplink` redirect to their new paths.
+Routes: `/` Map, `/profile`, `/experience`, `/blog` (Journal), `/blog/:slug` (Article), `/contact`, `*` Signal Lost. `/blog/:slug/read` (Read mode, `src/pages/read-mode/`) is a plain long-form reading page mounted outside `ReaderShell` in `src/app.tsx`: no sheets, page turns or reading-order entry; journal cards and the article spread open it in a new tab. `/home` redirects to `/`; the legacy `/identity`, `/dossier` and `/uplink` redirect to their new paths.
 
 ## Scripts
 

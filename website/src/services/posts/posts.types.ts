@@ -6,6 +6,8 @@ export type PostSummary = {
   tags: string[]
   summary: string
   cover?: string
+  /** Optional card art; when set, journal cards prefer this over `cover`. */
+  altCover?: string
   readingMinutes: number
   /** 1 is the newest entry; positions are stable for a given build. */
   position: number

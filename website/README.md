@@ -35,6 +35,7 @@ date: 2026-11-14
 summary: One or two sentences for cards and the map.
 tags: [architecture, aws]
 cover: /assets/art/server-hall.webp
+altCover: /assets/art/journal/a-title/cover.gif
 draft: false
 ---
 

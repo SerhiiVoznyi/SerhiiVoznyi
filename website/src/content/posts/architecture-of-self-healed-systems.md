@@ -5,9 +5,10 @@ date: 2024-11-20
 summary: A practical blueprint for systems that detect, diagnose and fix themselves: health checks, traceable logs, log on demand, retries with backoff and dead-letter reprocessing, so you can sleep through a storm.
 tags: [architecture, resilience, observability, typescript]
 cover: /assets/art/journal/architecture-of-self-healed-systems/cover.webp
+altCover: /assets/art/journal/architecture-of-self-healed-systems/cover.gif
 ---
 
-*(A drop of wisdom in the ocean of madness)*
+_(A drop of wisdom in the ocean of madness)_
 
 > **DISCLAIMER**
 >
@@ -21,7 +22,7 @@ For senior software engineers tasked with building scalable systems, understandi
 
 ![A person sleeping in a blanket next to a computer](/assets/art/journal/architecture-of-self-healed-systems/image1.webp)
 
-*(\* "Sleep through a storm" is an idiomatic expression that refers to someone remaining calm, undisturbed, or unaffected during chaos, challenges, or difficult situations.)*
+_(\* "Sleep through a storm" is an idiomatic expression that refers to someone remaining calm, undisturbed, or unaffected during chaos, challenges, or difficult situations.)_
 
 ## 2. What are Self-Healed Systems (SHS)?
 
@@ -62,7 +63,7 @@ All my functions have some implementation of configuration check like this.
 ```typescript
 function checkConfiguration(
   requiredVariableNames: string[],
-  shouldThrow: boolean = true
+  shouldThrow: boolean = true,
 ): boolean {
   const missingVars: string[] = []
   for (const variable of requiredVariableNames) {
@@ -73,7 +74,7 @@ function checkConfiguration(
   if (missingVars.length > 0) {
     if (shouldThrow) {
       throw new Error(
-        `Missing required environment variables: [${missingVars.join(', ')}]`
+        `Missing required environment variables: [${missingVars.join(', ')}]`,
       )
     }
     return false
@@ -82,7 +83,7 @@ function checkConfiguration(
 }
 ```
 
-*Example of a check configuration function. (TypeScript)*
+_Example of a check configuration function. (TypeScript)_
 
 It should be executed inside error handler before calling main functionality. You will not believe how many times it disclosed missing configuration or broken terraform scripts on early steps.
 
@@ -114,7 +115,7 @@ function healthCheck(functions: HealthCheckFunction[]): {
 }
 ```
 
-*Example of a check configuration function. (TypeScript)*
+_Example of a check configuration function. (TypeScript)_
 
 The execution of these methods can be made available through an HTTP API call. However, ensure that the API is not publicly accessible to prevent the disclosure of sensitive information and vulnerabilities.
 
@@ -150,7 +151,7 @@ Once tracing will be configured you will be able to track executing through all 
 }
 ```
 
-*Example of a log trace structure. (JSON)*
+_Example of a log trace structure. (JSON)_
 
 #### 3.2.1. Log on demand
 
@@ -179,7 +180,7 @@ export const executeWithRetry = async (
   func: () => Promise<any>,
   retries: number = 3,
   baseDelayMs: number = 1000,
-  maxDelayMs: number = 10000
+  maxDelayMs: number = 10000,
 ): Promise<any> => {
   let attempt = 1
   let currentRetries = retries
@@ -205,7 +206,7 @@ export const executeWithRetry = async (
 }
 ```
 
-*Example of an exponential retry function. (TypeScript)*
+_Example of an exponential retry function. (TypeScript)_
 
 This is my variant of an exponential retry function, you can find any appropriate implementation in existing libraries or create your own.
 

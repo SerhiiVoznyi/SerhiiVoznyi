@@ -43,6 +43,7 @@ type Source = {
   tags: string[]
   summary: string
   cover?: string
+  altCover?: string
   draft: boolean
   body: string
 }
@@ -85,6 +86,7 @@ const readSources = (dir: string): Source[] => {
         tags: asList(data.tags).map((tag) => tag.toLowerCase()),
         summary: asString(data.summary),
         cover: asString(data.cover) || undefined,
+        altCover: asString(data.altCover) || undefined,
         draft: data.draft === true,
         body,
       },
@@ -214,6 +216,7 @@ const compile = (sources: readonly Source[], includeDrafts: boolean): Compiled =
     tags: source.tags,
     summary: source.summary,
     ...(source.cover ? { cover: source.cover } : {}),
+    ...(source.altCover ? { altCover: source.altCover } : {}),
     readingMinutes: estimateReadingMinutes(source.body),
     position: index + 1,
   }))

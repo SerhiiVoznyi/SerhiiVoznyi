@@ -5,6 +5,7 @@ date: 2026-02-03
 summary: Windows 11 is becoming an AI-first OS. The problem is not AI but defaults that weaken real consent, plus a walkthrough of RemoveWindowsAI for anyone who wants their machine back.
 tags: [ai, privacy, windows, opinion]
 cover: /assets/art/journal/microsofts-ai-strategy-in-windows-11/cover.webp
+altCover: /assets/art/journal/microsofts-ai-strategy-in-windows-11/cover.gif
 ---
 
 > "How Productivity Tools Are Overloading Software Engineers"
@@ -34,13 +35,13 @@ This represents a shift in philosophy: the operating system becomes proactive ra
 
 **2. Accessibility improvements ♿.** Voice interaction and guided assistance can significantly help users with limited mobility, visual impairments, or difficulty using traditional interfaces. In this area, AI integration has clear social value. Context-aware help can improve onboarding, troubleshooting, and learning. In theory, this makes Windows more supportive and easier to use, especially for new users.
 
-*[See the source list at the end for supporting evidence.]*
+_[See the source list at the end for supporting evidence.]_
 
 ![A father and son sitting together at a computer](/assets/art/journal/microsofts-ai-strategy-in-windows-11/image2.webp)
 
 ## Negative Aspects ⚠️
 
-**1. Loss of autonomy through default behavior.** The most serious concern is not that AI exists, but that it is *enabled and promoted by default*. When Copilot is embedded into the taskbar and search, it becomes the primary interaction path.
+**1. Loss of autonomy through default behavior.** The most serious concern is not that AI exists, but that it is _enabled and promoted by default_. When Copilot is embedded into the taskbar and search, it becomes the primary interaction path.
 
 Defaults matter. When an operating system strongly nudges users toward one way of working, it subtly shapes behavior. This affects freedom of will, even if users technically retain the ability to opt out.
 
@@ -62,7 +63,7 @@ User reactions are mixed but increasingly polarized:
 
 - Some users welcome the convenience and see AI as a natural evolution.
 - Privacy-focused users strongly object to default-on AI and voice-based interaction.
-- Many users do not reject AI itself — they reject *forced adoption*, unclear boundaries, and the effort required to opt out.
+- Many users do not reject AI itself — they reject _forced adoption_, unclear boundaries, and the effort required to opt out.
 
 The existence of popular guides explaining how to disable or remove AI features is a clear signal of discomfort among a significant group of users.
 
@@ -134,10 +135,10 @@ A healthier balance would treat AI as a clearly optional tool — enabled by exp
 
 ## Sources
 
-1. Microsoft Windows Experience Blog – *Making every Windows 11 PC an AI PC*
-2. Reuters – *Microsoft launches new AI upgrades for Windows 11*
-3. Windows Central – *Copilot integration in Windows 11 taskbar and search*
-4. PCWorld – *How to remove or reduce AI features in Windows 11*
-5. Tom’s Hardware – *Copilot and browser-level AI integration*
+1. Microsoft Windows Experience Blog – _Making every Windows 11 PC an AI PC_
+2. Reuters – _Microsoft launches new AI upgrades for Windows 11_
+3. Windows Central – _Copilot integration in Windows 11 taskbar and search_
+4. PCWorld – _How to remove or reduce AI features in Windows 11_
+5. Tom’s Hardware – _Copilot and browser-level AI integration_
 6. Public user discussions on Reddit and technology forums regarding Windows 11 AI updates
 7. RemoveWindowsAI – GitHub - <https://github.com/zoicware/RemoveWindowsAI>

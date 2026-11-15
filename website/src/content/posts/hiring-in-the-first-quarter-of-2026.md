@@ -5,6 +5,7 @@ date: 2026-03-05
 summary: Twenty-plus interview sessions in one quarter: AI CV scanners, the 37% look-then-leap rule, the five-stage interview marathon, and the contract clauses to read before you sign.
 tags: [career, hiring]
 cover: /assets/art/journal/hiring-in-the-first-quarter-of-2026/cover.webp
+altCover: /assets/art/journal/hiring-in-the-first-quarter-of-2026/cover.gif
 ---
 
 > "The Old Rules Are Gone. The New Ones Are… **Complicated**"
@@ -38,11 +39,11 @@ I’m not sure how relevant this article will be at the moment of being publishe
 
 Nevertheless, let’s dive in.
 
-*[See the source list at the end for supporting evidence.]*
+_[See the source list at the end for supporting evidence.]_
 
 ![Johnny Silverhand from Cyberpunk 2077](/assets/art/journal/hiring-in-the-first-quarter-of-2026/image2.webp)
 
-***WAKE UP SAMURAI, WE HAVE AN INTERVIEW TODAY!***
+_**WAKE UP SAMURAI, WE HAVE AN INTERVIEW TODAY!**_
 
 ## How has the hiring process changed since 2025?
 
@@ -58,7 +59,7 @@ We can understand this tendency: the number of candidates is higher than the num
 
 **How do companies review all these applications?** The answer is simple: **they don’t**!
 
-Instead, they use *AI scanners* and specialized tools placed in front of their recruitment systems. These tools filter candidates automatically, removing anyone whose CV is not a near-perfect match for the role. So, if your CV is not a strong match from the system’s point of view, *you can forget about even being noticed* [1].
+Instead, they use _AI scanners_ and specialized tools placed in front of their recruitment systems. These tools filter candidates automatically, removing anyone whose CV is not a near-perfect match for the role. So, if your CV is not a strong match from the system’s point of view, _you can forget about even being noticed_ [1].
 
 Ok, ok — you made the adjustments, polished the corners, and now you have a noticeable CV that passed the initial filter. Are you safe now?
 
@@ -70,7 +71,7 @@ Compared with previous years, companies have started using the “Look-then-Leap
 
 The strategy is broken down into two distinct phases:
 
-1. **The "Look" Phase (Setting the Baseline):** You interview the first portion of candidates (the "exploratory sample") without any intention of *hiring them*. Your only goal here is to gather data and determine who the "best so far" is. This becomes your **benchmark**.
+1. **The "Look" Phase (Setting the Baseline):** You interview the first portion of candidates (the "exploratory sample") without any intention of _hiring them_. Your only goal here is to gather data and determine who the "best so far" is. This becomes your **benchmark**.
 2. **The "Leap" Phase (Making the Choice):** After you've passed the 37% mark, you continue interviewing. You hire the **very first person** who is better than everyone you saw in the "Look" phase.
 
 ![A cybernetic arm reaching out of a pile of scrap in a ruined city](/assets/art/journal/hiring-in-the-first-quarter-of-2026/image6.webp)
@@ -85,7 +86,7 @@ If your CV survives the AI filters and the statistical lottery of the hiring fun
 
 ### Step 1 — HR Interview
 
-The first stage is usually a conversation with HR. At this point they are not evaluating your technical skills. Instead, they check your general background, communication style, salary expectations, and — most importantly — your willingness to continue the process. In simple terms: are you stable, communicative, and not asking for *too much money*?
+The first stage is usually a conversation with HR. At this point they are not evaluating your technical skills. Instead, they check your general background, communication style, salary expectations, and — most importantly — your willingness to continue the process. In simple terms: are you stable, communicative, and not asking for _too much money_?
 
 ![Cyberpunk 2077 scene — Stout: "Now answer my questions. Honestly. Forthrightly. Are you here alone?"](/assets/art/journal/hiring-in-the-first-quarter-of-2026/image7.webp)
 
@@ -115,7 +116,7 @@ Yes. All of this… just to write code...
 
 You survived the five-step madness. You got an offer. Congratulations. Now, don’t relax — the real trap is the contract. Even a “perfect” offer can turn into a nightmare if you don’t pay attention to the details. Here’s what you need to watch carefully:
 
-**1. Salary and Bonuses.** Make sure the numbers are explicit: base salary, bonuses, stock options (if any). Watch for vague wording like “performance-based bonus” without clear KPIs — it’s a loophole for the company to *pay nothing*. Even benefits like catering or vacation, day-offs should be written if not in the main contract they can be attached as a separate section.
+**1. Salary and Bonuses.** Make sure the numbers are explicit: base salary, bonuses, stock options (if any). Watch for vague wording like “performance-based bonus” without clear KPIs — it’s a loophole for the company to _pay nothing_. Even benefits like catering or vacation, day-offs should be written if not in the main contract they can be attached as a separate section.
 
 **2. Probation Periods.** Check the length and conditions. Some companies use probation to terminate early without notice. Confirm if benefits and rights apply during probation.
 
@@ -135,7 +136,7 @@ You survived the five-step madness. You got an offer. Congratulations. Now, don�
 
 From my experience, I almost fell into this trap. This year I had a very attractive offer. Everything seemed standard, but when I analyzed it with AI, it revealed a hidden clause in the **“Responsibility of the Parties”** section. It stated that I would be responsible for company contracts and terms, and if I failed to deliver for any reason, I would have to cover costs, including the use of external libraries, up to **$100,000**. For a position with a **$7,000 monthly salary**, that’s insane.
 
-***Remember: passing interviews is hard, but signing the wrong contract is even harder to recover from.***
+_**Remember: passing interviews is hard, but signing the wrong contract is even harder to recover from.**_
 
 ## Summary
 

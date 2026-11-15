@@ -76,6 +76,11 @@ export const entrySlugOf = (pathname: string) => {
 
 export const entryPath = (slug: string) => `/blog/${encodeURIComponent(slug)}`
 
+/** A plain reading view of an entry, outside the artbook and its reading order. */
+export const READ_MODE_ROUTE = '/blog/:slug/read'
+
+export const readModePath = (slug: string) => `${entryPath(slug)}/read`
+
 /** Entries belong to the Journal spread; the counter shows their own position beside it. */
 export const findSpreadIndex = (pathname: string) =>
   entrySlugOf(pathname) !== null

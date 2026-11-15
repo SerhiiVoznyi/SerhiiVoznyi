@@ -1,7 +1,34 @@
 @use '../../styles/mixins' as *
 
 .plate-card
+    position: relative
     min-width: 0
+
+    &:not(.plate-card--compact, .plate-card--skeleton) .plate-card__link
+        padding-bottom: 2.9rem
+
+// A sibling of the card link, not a child, so the two never nest interactive content.
+.plate-card__read
+    position: absolute
+    right: 0.6rem
+    bottom: 0.6rem
+    display: inline-flex
+    align-items: center
+    gap: 0.35rem
+    padding: 0.25rem 0.55rem
+    @include hud-label
+    font-size: var(--app-text-small)
+    font-weight: 700
+    color: var(--app-color-ink)
+    background: var(--app-color-cyan)
+    border: 2px solid var(--app-color-ink)
+    @include attention-pulse
+
+    i
+        font-size: 1rem
+
+    &:hover
+        background: var(--app-color-yellow)
 
 .plate-card__link
     position: relative
@@ -31,6 +58,10 @@
     background: var(--plate-src) center / cover no-repeat, var(--app-color-ink)
     filter: grayscale(0.35) contrast(1.05)
     border: 2px solid var(--app-color-ink)
+
+    // Alternative card art keeps its own colour; GIFs stay animated.
+    &--alt
+        filter: none
 
 .plate-card__meta
     display: flex

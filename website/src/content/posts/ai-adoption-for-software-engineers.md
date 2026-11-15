@@ -5,6 +5,7 @@ date: 2026-05-04
 summary: Maximize impact, minimize cost: task decomposition, a tool-agnostic ai directory, routing work to the cheapest capable model, contract-driven multi-agent pipelines and GraphRAG to shrink the token bill.
 tags: [ai, agents, cost-optimization]
 cover: /assets/art/journal/ai-adoption-for-software-engineers/cover.webp
+altCover: /assets/art/journal/ai-adoption-for-software-engineers/cover.gif
 ---
 
 > "**Maximize** impact, **minimize** cost"

@@ -11,9 +11,9 @@ type CyanPillProps = {
   tone?: 'cyan' | 'yellow'
   className?: string
 } & (
-  | { to: string; href?: never; onClick?: never }
-  | { href: string; to?: never; onClick?: never }
-  | { onClick: () => void; to?: never; href?: never }
+  | { to: string; href?: never; onClick?: never; newTab?: never }
+  | { href: string; to?: never; onClick?: never; newTab?: boolean }
+  | { onClick: () => void; to?: never; href?: never; newTab?: never }
 )
 
 export const CyanPill = ({
@@ -47,13 +47,13 @@ export const CyanPill = ({
   }
 
   if (target.href !== undefined) {
-    const external = /^https?:\/\//.test(target.href)
+    const newTab = target.newTab ?? /^https?:\/\//.test(target.href)
     return (
       <a
         href={target.href}
         className={classes}
-        target={external ? '_blank' : undefined}
-        rel={external ? 'noreferrer' : undefined}>
+        target={newTab ? '_blank' : undefined}
+        rel={newTab ? 'noreferrer' : undefined}>
         {content}
       </a>
     )

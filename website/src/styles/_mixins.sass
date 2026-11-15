@@ -69,6 +69,21 @@
     body[data-fx='reduced'] &::after
         animation: none
 
+// A breathing cyan glow for a call to action. It is a filter, so put it on a wrapper of any
+// clip-path element: the clip would cut the glow off.
+@mixin attention-pulse($duration: 1.6s)
+    animation: attention-pulse $duration ease-in-out infinite
+
+    &:hover,
+    &:focus-visible
+        animation: none
+
+    @media (prefers-reduced-motion: reduce)
+        animation: none
+
+    body[data-fx='reduced'] &
+        animation: none
+
 @mixin hud-label
     font-family: var(--app-font-mono)
     font-size: var(--app-text-label)

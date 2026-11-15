@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *
+
 .article
     --single-stack-top: 32%
 
@@ -11,6 +13,14 @@
         padding: 1rem 1.25rem 1.1rem
         background: linear-gradient(180deg, rgba(10, 10, 11, 0.88), rgba(10, 10, 11, 0.72))
         border-left: 4px solid var(--app-color-yellow)
+
+    .article__read
+        align-self: flex-start
+        @include attention-pulse
+
+        &:hover,
+        &:focus-within
+            animation: none
 
     .article__related
         display: flex

@@ -5,6 +5,7 @@ date: 2025-12-20
 summary: An AIOps enrichment pattern: a small Lambda between Grafana and PagerDuty pulls the relevant logs and metrics so an AI agent can turn "Service X is down" into a first diagnosis.
 tags: [ai, aiops, incident-management, aws]
 cover: /assets/art/journal/integrating-ai-into-real-time-incident-analysis/cover.webp
+altCover: /assets/art/journal/integrating-ai-into-real-time-incident-analysis/cover.gif
 ---
 
 ![A person in a chair giving a presentation to a group of people](/assets/art/journal/integrating-ai-into-real-time-incident-analysis/image1.webp)
@@ -21,7 +22,7 @@ Generative AI has reduced this to approximately 22.55 hours. For more complex cy
 
 So, the problem is clear - now it’s time to talk about solutions. I’ve built one that works, at least in my world. Let’s see how it holds up in yours.
 
-*[See the source list at the end for supporting evidence.]*
+_[See the source list at the end for supporting evidence.]_
 
 ## Empowering Engineers with AI-Driven Investigation Tools
 
@@ -57,8 +58,8 @@ To complete the integration, configure a notification policy in Grafana to ensur
 
 When Grafana sends the webhook, it sends a JSON object. For your AI agent to work, ensure your Grafana alert includes these three things:
 
-- **`starts_at`**: Lets the AI pull logs and metrics *starting from the actual incident time*, not just now-ish. Because context matters.
-- **`resource_id` / `cluster`**: Gives your AI something to *query*, so it's not guessing in the void like a haunted log gremlin.
+- **`starts_at`**: Lets the AI pull logs and metrics _starting from the actual incident time_, not just now-ish. Because context matters.
+- **`resource_id` / `cluster`**: Gives your AI something to _query_, so it's not guessing in the void like a haunted log gremlin.
 - **`source_url`**: Adds traceability and visibility by linking back to the exact dashboard/panel in Grafana. PagerDuty can include this in the incident message, giving humans one-click access to actual data instead of starting a Slack witch hunt.
 
 When you create or edit an alert rule in Grafana (via **Alerting > Alert Rules**), you can define custom fields in the **Annotations** section. These annotations will be included in the webhook payload and are exactly where you want to stick your AI-friendly metadata.

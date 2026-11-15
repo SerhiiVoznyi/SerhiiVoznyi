@@ -1,0 +1,130 @@
+@use '../../styles/mixins' as *
+
+// The body never scrolls (the artbook owns the viewport), so read mode is its own scroll container.
+.read-mode
+    height: 100%
+    overflow-y: auto
+    scrollbar-gutter: stable
+    background: radial-gradient(ellipse at 50% 0, var(--app-color-void-raised), var(--app-color-void) 70%)
+
+.read-mode__topbar
+    position: sticky
+    top: 0
+    z-index: 1
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 1rem
+    padding: 0.7rem var(--app-chrome-gutter)
+    background: rgba(10, 10, 11, 0.92)
+    border-bottom: 1px solid var(--app-color-void-line)
+    backdrop-filter: blur(6px)
+
+.read-mode__brand
+    @include hud-label
+    color: var(--app-text-color-main)
+
+    span
+        color: var(--app-color-cyan)
+
+    &:hover
+        color: var(--app-color-yellow)
+
+.read-mode__main
+    padding: clamp(1rem, 4vw, 3rem) clamp(0.5rem, 3vw, 2rem) clamp(2rem, 6vw, 5rem)
+
+.read-mode__sheet
+    max-width: 50rem
+    margin: 0 auto
+    padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1.25rem, 6vw, 4.5rem)
+    color: var(--app-color-ink)
+    @include paper-grain
+    @include ink-edge
+
+    &--loading
+        display: flex
+        flex-direction: column
+        gap: 0.8rem
+
+.read-mode__header
+    display: flex
+    flex-direction: column
+    gap: 1rem
+
+.read-mode__kicker
+    margin: 0
+    @include hud-label
+    color: var(--app-color-ink-muted)
+
+    &--red
+        color: var(--app-color-red)
+
+.read-mode__title.display-title
+    font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3.2rem)
+
+.read-mode__lead
+    max-width: 68ch
+    margin: 0
+    font-family: var(--app-font-display)
+    font-size: var(--app-text-lead)
+    font-weight: 600
+    line-height: 1.4
+
+.read-mode__rule
+    margin: 2rem 0
+
+// Longer measure and looser rhythm than the sheet prose: here the page is the whole screen.
+.read-mode__prose.prose
+    max-width: 72ch
+    font-size: clamp(1.1rem, 1rem + 0.3vw, 1.25rem)
+    line-height: 1.75
+
+    p, ul, ol, blockquote, pre, table
+        margin-bottom: 1.25rem
+
+    h3, h4, h5
+        margin-top: 2.25rem
+        margin-bottom: 0.8rem
+
+    img
+        margin: 1.75rem auto
+
+    table
+        display: block
+        overflow-x: auto
+
+.read-mode__pager
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    gap: 1rem
+    margin-top: 3rem
+    padding-top: 1.5rem
+    border-top: 2px solid var(--app-color-ink)
+
+.read-mode__turn
+    display: inline-flex
+    align-items: center
+    gap: 0.5rem
+    padding: 0.5rem 0.8rem
+    font-family: var(--app-font-display)
+    font-weight: 700
+    letter-spacing: 0.06em
+    text-transform: uppercase
+    border: 2px solid var(--app-color-ink)
+    box-shadow: 3px 4px 0 var(--app-color-ink)
+
+    &:hover
+        background: var(--app-color-yellow)
+
+    &--older
+        margin-left: auto
+
+.read-mode__bar
+    display: block
+    height: 1.1rem
+    background: var(--app-color-ink-muted)
+    opacity: 0.3
+
+    &--short
+        width: 60%
